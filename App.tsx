@@ -9,6 +9,8 @@ import { Checkbox, Menu, Provider as PaperProvider, Button } from 'react-native-
 
 export type Course = 'Main' | 'Dessert' | 'Entree';
 
+export const  COURSES: Course[] = ['Dessert', 'Main', 'Entree'];
+
 export type Dishes = {
   id: number;
   image: any;
@@ -31,6 +33,8 @@ export default function App() {
 
   const [dish, setDish] = useState<Dishes[]>([]);
   const [selectedImage, setSelectedImage] = useState<any>(null)
+
+  const [menuVisible, setMenuVisible] = useState(false);
 
 
       const pickImage = async () => {
@@ -63,12 +67,41 @@ export default function App() {
       <View style={styles.form}>
 
     <View>
+    <View>
       <TouchableOpacity onPress={pickImage}>
 
           <Image source={{uri: selectedImage}}
           style ={styles.pickedImageDisplay}/>
  
       </TouchableOpacity>
+
+      <Menu
+      visible = {menuVisible}
+      onDismiss={ () => setMenuVisible(false)}
+      anchor ={
+        
+      <TouchableOpacity
+      onPress ={() => setMenuVisible(true)}
+      >
+        <View style = {styles.Button}>
+          <Text>{course || 'Select Course'}</Text>
+        </View>
+      </TouchableOpacity>
+
+      }
+      >
+        { COURSES.map ((course,index)=>(
+
+          <Menu.Item
+          key={course}
+          title= {course}
+          onPress={() => {setCourse (course as Course)}}
+          />
+        ))}
+
+      </Menu>
+
+    </View> 
         
     </View>
 
@@ -101,6 +134,7 @@ export default function App() {
         <TextInput
           placeholder="Enter dish price"
           value={price}
+          keyboardType='numeric'
           onChangeText={setPrice}
           style={styles.input}
           
@@ -263,6 +297,13 @@ const styles = StyleSheet.create({
   borderWidth: 2
   
 },
+dropDownAnchorButton: {
+  height : 75,
+  width: 100,
+  backgroundColor: 'rgba(96, 165, 243, 0.2)',
+  borderRadius: 22,
+
+}
 
 
 });
