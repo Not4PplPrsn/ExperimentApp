@@ -2,32 +2,57 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, FlatList, Animated, TouchableOpacity  } from 'react-native';
 import {useState} from 'react';
 import { Alert } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { ImageBackground } from 'react-native';
+import { Checkbox, Menu, Provider as PaperProvider, Button } from 'react-native-paper';
 
 
 export type Course = 'Main' | 'Dessert' | 'Entree';
+
+export type Dishes = {
+  id: number;
+  image: any;
+  dishName: string;
+  description: string;
+  price: number;
+  isDeleted: boolean; 
+  courseName: string; 
+};
+
 export default function App() {
 
   const companyName = "Mister Christoffel's";
-  const stundentNumber = 'ST10470237';
+  const studentNumber = 'ST10470237';
 
   const [price, setPrice] = useState('');
   const [dishName, setDishName] = useState('');
   const [dishDescription, setDishDescription] = useState('');
   const [course, setCourse] = useState<Course>('Main');
 
-  const [dish, setDish] = useState([]);
+  const [dish, setDish] = useState<Dishes[]>([]);
+  const [selectedImage, setSelectedImage] = useState<any>(null)
+
+
+      const pickImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,//only allows images no other file types 
+      allowsEditing: false,// does not let the user crop or adjust the image.
+      quality: 1,//opens the image library on the device
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    }
+  }
+
 
   return (
     <View style={styles.container}>
       <View style={styles.topBar} >
-        <Text style={styles.TopBarText}>{companyName}</Text>   
+        <Text style={styles.TopBarText}>{companyName}</Text> 
+        <Text>{studentNumber}</Text>  
       </View>
-
-      <View>
-        <TouchableOpacity>
-          <Image/>
-        </TouchableOpacity>
-      </View>
+      
 
       <View>
         <Text style={styles.FormHeading}>
@@ -37,9 +62,18 @@ export default function App() {
       
       <View style={styles.form}>
 
+    <View>
+      <TouchableOpacity onPress={pickImage}>
+
+          <Image source={{uri: selectedImage}}
+          style ={styles.pickedImageDisplay}/>
+ 
+      </TouchableOpacity>
+        
+    </View>
 
       <View style={styles.formFields}>
-        <Text style={styles.baselineText}>Name of Dish:</Text>
+        <Text style={styles.inputSubheadings}>Name of Dish:</Text>
         <TextInput
           placeholder="Enter dish name"
           value={dishName}
@@ -217,6 +251,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     fontStyle: 'italic'
-  }
+  },
+  imageDesign: {
+    borderRadius: '100%',
+    
+  },
+  pickedImageDisplay: {
+  width : 100,
+  height: 100,
+  borderRadius: 75,
+  borderWidth: 2
+  
+},
+
 
 });
