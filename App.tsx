@@ -1,17 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, FlatList, Animated, TouchableOpacity  } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, FlatList, Animated, TouchableOpacity,ScrollView  } from 'react-native';
 import {useState} from 'react';
 import { Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { ImageBackground } from 'react-native';
-import { Checkbox, Menu, Provider as PaperProvider, Button } from 'react-native-paper';
+import { Checkbox, Menu, Provider as PaperProvider, Button,  } from 'react-native-paper';
+import { Dropdown } from 'react-native-paper-dropdown';
+import { Ionicons, MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
+
+
 
 
 export type Course = 'Main' | 'Dessert' | 'Entree';
 
 export const  COURSES: Course[] = ['Dessert', 'Main', 'Entree'];
 
-export type Dishes = {
+export type Dish = {
   id: number;
   image: any;
   dishName: string;
@@ -31,7 +35,7 @@ export default function App() {
   const [dishDescription, setDishDescription] = useState('');
   const [course, setCourse] = useState<Course>('Main');
 
-  const [dish, setDish] = useState<Dishes[]>([]);
+  const [dishes, setDishes] = useState<Dish[]>([]);
   const [selectedImage, setSelectedImage] = useState<any>(null)
 
   const [menuVisible, setMenuVisible] = useState(false);
@@ -49,25 +53,67 @@ export default function App() {
     }
   }
 
+  const handleAddingItems  = () => {
+    const DishName = dishName.trim();
+    const dishCourse= course.trim();
+    const descriptionT = dishDescription.trim();
+    const costT =Number(price.trim());
+
+  if ( !DishName || !dishCourse || !selectedImage || !descriptionT || costT <= 0){
+      Alert.alert("Please fill all field to continue📄")
+      console.log("Must fill all fields.😒")
+      return;
+    }
+    const normalizedNew = DishName.toLowerCase();
+
+    const exists = dishes.some(
+    d => d.dishName.trim().toLowerCase() === normalizedNew
+  );
+     if (exists) {
+    Alert.alert('Duplicate', `"${dishName}" is already in the list.`);
+    return;
+  }
+     const newDish: Dish = {
+    id: Math.random().toString(36).slice(2),
+    dishName: dishName.trim(),
+    price: costT,
+    image: selectedImage,
+    description: descriptionT,
+    courseName: dishCourse
+
+  };
+  setDishes(prev => [...prev, newDish]);
+
+  setDishName('');
+  setPrice('');
+  setCourse('Main');
+  setDishName('');
+  setDishDescription('');
+  setSelectedImage(null);
+
+  }
+
 
   return (
+    
     <View style={styles.container}>
       <View style={styles.topBar} >
         <Text style={styles.TopBarText}>{companyName}</Text> 
         <Text>{studentNumber}</Text>  
       </View>
       
-
+    <ScrollView>
       <View>
         <Text style={styles.FormHeading}>
           Fill the form below
         </Text>
       </View>
       
+    <PaperProvider>  
       <View style={styles.form}>
 
     <View>
-    <View>
+    <View style = {{flexDirection: 'row', justifyContent: 'space-evenly', padding: 10}}>
       <TouchableOpacity onPress={pickImage}>
 
           <Image source={{uri: selectedImage}}
@@ -75,31 +121,16 @@ export default function App() {
  
       </TouchableOpacity>
 
-      <Menu
-      visible = {menuVisible}
-      onDismiss={ () => setMenuVisible(false)}
-      anchor ={
-        
-      <TouchableOpacity
-      onPress ={() => setMenuVisible(true)}
-      >
-        <View style = {styles.Button}>
-          <Text>{course || 'Select Course'}</Text>
-        </View>
-      </TouchableOpacity>
-
-      }
-      >
-        { COURSES.map ((course,index)=>(
-
-          <Menu.Item
-          key={course}
-          title= {course}
-          onPress={() => {setCourse (course as Course)}}
-          />
-        ))}
-
-      </Menu>
+  <Dropdown
+    label="Select course"
+    placeholder="Select course"
+    options={COURSES.map((c) => ({ label: c, value: c }))}
+    value={course}
+    onSelect={(value) => setCourse(value as Course)}
+    mode="outlined"
+   menuContentStyle={styles.formFields}
+   
+  />
 
     </View> 
         
@@ -131,6 +162,8 @@ export default function App() {
 
       <View style={styles.formFields}>
         <Text style={styles.inputSubheadings}>Price of Dish:</Text>
+        <View style={{flexDirection: 'row'}}>
+        <Text style={styles.inputSubheadings}>R</Text>
         <TextInput
           placeholder="Enter dish price"
           value={price}
@@ -138,18 +171,49 @@ export default function App() {
           onChangeText={setPrice}
           style={styles.input}
           
-        />
+        /></View>
       </View>
       
       
     
 
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleAddingItems}>
         <View style={styles.Button}>
           <Text style={styles.buttonText}>ADD</Text>
         </View>
       </TouchableOpacity>
+      
+      </PaperProvider>
+
+
+
+
+
+    <FlatList
+    data={dishes}
+    keyExtractor= {(item) =>(item.name)}
+    ListEmptyComponent={() => (
+      <View>
+        <Text> Nothing Here Yet</Text>
+      </View>
+    )}
+
+    renderItem={({item}) => (
+      <View>
+        <View>
+          <Image
+          source={item.image}
+          />
+          <Text>{item.dishName}</Text>
+          <Text>{item.courseName}</Text>
+        </View>
+        <Text>{item.description}</Text>
+        <Text>{item.price}</Text>
+      </View>
+    )}
+    
+    />
 
 
 
@@ -160,14 +224,10 @@ export default function App() {
 
 
 
-
-
-
-
-
-
+</ScrollView>
       <StatusBar style="auto" />
     </View>
+    
   );
 }
 
@@ -217,7 +277,7 @@ const styles = StyleSheet.create({
   formFields: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
   }, 
   input: {
     backgroundColor: 'rgb(230, 227, 215)',
@@ -298,12 +358,31 @@ const styles = StyleSheet.create({
   
 },
 dropDownAnchorButton: {
-  height : 75,
+  height : 50,
   width: 100,
   backgroundColor: 'rgba(96, 165, 243, 0.2)',
   borderRadius: 22,
+  padding: 5,
+  justifyContent: 'flex-end'
+  
 
+},
+dropDownItems: {
+  height : 50,
+  width: 100,
+  backgroundColor: 'rgba(216, 236, 141, 0.7)',
+  borderRadius: 22,
+  padding: 5,
+  
+
+},
+emptyListBox:{
+  height: 300,
+  width: 366,
+  borderColor: 'rgba(66, 99, 34, 0.2)',
+  
 }
+
 
 
 });
