@@ -79,7 +79,8 @@ export default function App() {
     price: costT,
     image: selectedImage,
     description: descriptionT,
-    courseName: dishCourse
+    courseName: dishCourse,
+    isDeleted: false
 
   };
   setDishes(prev => [...prev, newDish]);
@@ -102,7 +103,7 @@ export default function App() {
         <Text>{studentNumber}</Text>  
       </View>
       
-    <ScrollView>
+    <ScrollView contentContainerStyle ={{maxWidth: 800}}>
       <View>
         <Text style={styles.FormHeading}>
           Fill the form below
@@ -110,6 +111,14 @@ export default function App() {
       </View>
       
     <PaperProvider>  
+
+
+      <TouchableOpacity onPress={handleAddingItems}>
+        <View style={styles.Button}>
+          <Entypo name="plus" size={40} color="#000000" />
+        </View>
+      </TouchableOpacity>
+      
       <View style={styles.form}>
 
     <View>
@@ -171,18 +180,14 @@ export default function App() {
           onChangeText={setPrice}
           style={styles.input}
           
-        /></View>
+        />
+        </View>
       </View>
       
       
     
 
       </View>
-      <TouchableOpacity onPress={handleAddingItems}>
-        <View style={styles.Button}>
-          <Text style={styles.buttonText}>ADD</Text>
-        </View>
-      </TouchableOpacity>
       
       </PaperProvider>
 
@@ -192,21 +197,25 @@ export default function App() {
 
     <FlatList
     data={dishes}
-    keyExtractor= {(item) =>(item.name)}
+    keyExtractor= {(item) =>(item.id)}
     ListEmptyComponent={() => (
-      <View>
-        <Text> Nothing Here Yet</Text>
+      <View style={styles.emptyListBox}>
+        <Text style = {styles.emptyText}> Nothing Here Yet 💭</Text>
       </View>
     )}
 
     renderItem={({item}) => (
-      <View>
-        <View>
+      <View style={styles.ListItemContainer} >
+        <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
           <Image
           source={item.image}
+          style ={styles.pickedImageDisplay}
           />
+        <View style ={{flexDirection: 'column', padding:4}}>
           <Text>{item.dishName}</Text>
           <Text>{item.courseName}</Text>
+        </View>
+
         </View>
         <Text>{item.description}</Text>
         <Text>{item.price}</Text>
@@ -273,6 +282,7 @@ const styles = StyleSheet.create({
     width: 350,
     backgroundColor: 'rgb(233, 197, 119)',
     padding: 20,
+    alignSelf: 'center'
   },
   formFields: {
     flexDirection: 'column',
@@ -314,11 +324,11 @@ const styles = StyleSheet.create({
   },
   Button: {
     backgroundColor: 'rgb(24, 132, 204)',
-    padding: 10,
-    margin: 20,
+    padding: 5,
+    margin: 2,
     alignSelf: 'center',
-    width: 300,
-    height: 80,
+    width: 'auto',
+    height: 'auto',
     alignItems: 'center',
     borderRadius: 25
   },
@@ -354,34 +364,36 @@ const styles = StyleSheet.create({
   width : 100,
   height: 100,
   borderRadius: 75,
-  borderWidth: 2
+  borderWidth: 2,
+  padding: 20
   
-},
-dropDownAnchorButton: {
-  height : 50,
-  width: 100,
-  backgroundColor: 'rgba(96, 165, 243, 0.2)',
-  borderRadius: 22,
-  padding: 5,
-  justifyContent: 'flex-end'
-  
-
-},
-dropDownItems: {
-  height : 50,
-  width: 100,
-  backgroundColor: 'rgba(216, 236, 141, 0.7)',
-  borderRadius: 22,
-  padding: 5,
-  
-
 },
 emptyListBox:{
-  height: 300,
-  width: 366,
-  borderColor: 'rgba(66, 99, 34, 0.2)',
-  
-}
+    borderWidth: 3,
+    borderColor: "#111111",
+    borderStyle: "dashed",
+    paddingVertical: 30,
+    paddingHorizontal: 20,
+    alignItems: "center",
+    width: 350,
+    alignSelf: 'center',  
+},
+  emptyText: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#111111",
+    letterSpacing: 2.15,
+    fontFamily: 'Gothic'
+  },
+
+  ListItemContainer: {
+    width: 'auto',
+    alignSelf: 'center',
+    height: 'auto',
+    backgroundColor: "rgba(223, 134, 74, 0.71)",
+    margin: 20,
+  }
+
 
 
 
