@@ -103,7 +103,7 @@ export default function App() {
         <Text>{studentNumber}</Text>  
       </View>
       
-    <ScrollView contentContainerStyle ={{maxWidth: 800}}>
+    <ScrollView contentContainerStyle ={{maxWidth: 800, maxHeight: 'auto',}}>
       <View>
         <Text style={styles.FormHeading}>
           Fill the form below
@@ -406,7 +406,8 @@ emptyListBox:{
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    
+    width: 200
+
   },
 
 
