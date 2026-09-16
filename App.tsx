@@ -218,7 +218,11 @@ export default function App() {
 
         </View>
         <Text>{item.description}</Text>
-        <Text>{item.price}</Text>
+
+        <View style = {styles.priceContainer}>
+          <Text style  = {styles.priceText}> R{item.price}</Text>
+        </View>
+      
       </View>
     )}
     
@@ -392,7 +396,18 @@ emptyListBox:{
     height: 'auto',
     backgroundColor: "rgba(223, 134, 74, 0.71)",
     margin: 20,
-  }
+  },
+  priceText: {
+    fontStyle: 'italic',
+    fontWeight: '600',
+    fontSize: 12,
+
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    
+  },
 
 
 
