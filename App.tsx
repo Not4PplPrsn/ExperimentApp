@@ -61,7 +61,7 @@ export default function App() {
 
   if ( !DishName || !dishCourse || !selectedImage || !descriptionT || costT <= 0){
       Alert.alert("Please fill all field to continue📄")
-      console.log("Must fill all fields.😒")
+      console.log("Must fill in all fields.😒")
       return;
     }
     const normalizedNew = DishName.toLowerCase();
