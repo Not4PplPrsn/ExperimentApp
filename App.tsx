@@ -103,7 +103,7 @@ export default function App() {
         <Text>{studentNumber}</Text>  
       </View>
       
-    <ScrollView contentContainerStyle ={{maxWidth: 800, maxHeight: 'auto',}}>
+    <ScrollView contentContainerStyle ={{maxWidth: 800, maxHeight: 'auto', paddingBottom: 20,}}>
       <View>
         <Text style={styles.FormHeading}>
           Fill the form below
@@ -113,16 +113,11 @@ export default function App() {
     <PaperProvider>  
 
 
-      <TouchableOpacity onPress={handleAddingItems}>
-        <View style={styles.Button}>
-          <Entypo name="plus" size={40} color="#000000" />
-        </View>
-      </TouchableOpacity>
       
       <View style={styles.form}>
 
     <View>
-    <View style = {{flexDirection: 'row', justifyContent: 'space-evenly', padding: 10}}>
+    <View style = {{flexDirection: 'row', justifyContent: 'space-between'}}>
       <TouchableOpacity onPress={pickImage}>
 
           <Image source={{uri: selectedImage}}
@@ -131,13 +126,14 @@ export default function App() {
       </TouchableOpacity>
 
   <Dropdown
+  
     label="Select course"
     placeholder="Select course"
     options={COURSES.map((c) => ({ label: c, value: c }))}
     value={course}
     onSelect={(value) => setCourse(value as Course)}
     mode="outlined"
-   menuContentStyle={styles.formFields}
+   menuContentStyle={styles.dropdownContainer}
    
   />
 
@@ -172,7 +168,7 @@ export default function App() {
       <View style={styles.formFields}>
         <Text style={styles.inputSubheadings}>Price of Dish:</Text>
         <View style={{flexDirection: 'row'}}>
-        <Text style={styles.inputSubheadings}>R</Text>
+        <Text style={{fontSize: 13, fontWeight: '600',}}>R</Text>
         <TextInput
           placeholder="Enter dish price"
           value={price}
@@ -188,6 +184,12 @@ export default function App() {
     
 
       </View>
+      <TouchableOpacity onPress={handleAddingItems}>
+        <View style={styles.Button}>
+          <Entypo name="plus" size={30} color="#f8f4f4" />
+        </View>
+      </TouchableOpacity>
+
       
       </PaperProvider>
 
@@ -212,8 +214,8 @@ export default function App() {
           style ={styles.pickedImageDisplay}
           />
         <View style ={{flexDirection: 'column', padding:4}}>
-          <Text>{item.dishName}</Text>
-          <Text>{item.courseName}</Text>
+          <Text style={styles.dishNameText}>{item.dishName}</Text>
+          <Text style={styles.courseSelected}>{item.courseName}</Text>
         </View>
 
         </View>
@@ -292,6 +294,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'space-evenly',
+    
   }, 
   input: {
     backgroundColor: 'rgb(230, 227, 215)',
@@ -327,9 +330,9 @@ const styles = StyleSheet.create({
 
   },
   Button: {
-    backgroundColor: 'rgb(24, 132, 204)',
+    backgroundColor: 'rgb(12, 150, 241)',
     padding: 5,
-    margin: 2,
+    margin: 6,
     alignSelf: 'center',
     width: 'auto',
     height: 'auto',
@@ -369,7 +372,8 @@ const styles = StyleSheet.create({
   height: 100,
   borderRadius: 75,
   borderWidth: 2,
-  padding: 20
+  padding: 5,
+  margin: 10,
   
 },
 emptyListBox:{
@@ -406,9 +410,31 @@ emptyListBox:{
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    width: 200
+    width: 200,
+    margin: 15
 
   },
+  dropdownContainer: {
+  backgroundColor: 'rgb(233, 197, 119)',
+  color: "rgb(206, 89, 12)",
+  alignSelf: 'flex-end',
+  alignItems: 'center',
+  marginTop: 2.5,
+  },
+
+  courseSelected: {
+    fontWeight: "700",
+    fontSize: 16,
+    fontStyle: 'italic',
+    color: "rgba(29, 29, 28, 0.92)",
+
+  
+  },
+  dishNameText: {
+    fontWeight: "700",
+    fontSize: 19,
+    color: "rgba(90, 86, 70, 0.92)",
+  }
 
 
 
