@@ -3,18 +3,17 @@ import { StyleSheet, Text, View, Image, TextInput, FlatList,TouchableOpacity,Scr
 import {useState} from 'react';
 import { Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { ImageBackground } from 'react-native';
+import { ImageBackground } from 'react-native';//(Expo, 2026)
 import {  Provider as PaperProvider } from 'react-native-paper';
-import { Dropdown } from 'react-native-paper-dropdown';
+import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import { Ionicons, MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
 
 
 
 
-export type Course = 'Main' | 'Dessert' | 'Entree';
+export type Course = 'Main' | 'Dessert' | 'Entree'; /*The types will will act as a filler and in the dropdown menu */
 
-export const  COURSES: Course[] = ['Dessert', 'Main', 'Entree'];
-
+export const  COURSES: Course[] = ['Dessert', 'Main', 'Entree']; /*The choice for se of the  */
 export type Dish = {
   id: number;
   image: any;
@@ -30,18 +29,19 @@ export default function App() {
   const companyName = "Mister Christoffel's";
   const studentNumber = 'ST10470237';
 
+  //empty variable for filling in and storing information
   const [price, setPrice] = useState('');
   const [dishName, setDishName] = useState('');
   const [dishDescription, setDishDescription] = useState('');
   const [course, setCourse] = useState<Course>('Main');
 
-  const [dishes, setDishes] = useState<Dish[]>([]);
+  const [dishes, setDishes] = useState<Dish[]>([]); /*This is the dish array for us to use and store all items  */
   const [selectedImage, setSelectedImage] = useState<any>(null)
 
   const [menuVisible, setMenuVisible] = useState(false);
 
 
-      const pickImage = async () => {
+      const pickImage = async () => { //(Expo, 2026)
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,//only allows images no other file types 
       allowsEditing: false,// does not let the user crop or adjust the image.
@@ -49,31 +49,35 @@ export default function App() {
     });
 
     if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri);
+      setSelectedImage(result.assets[0].uri); //does not show an image if nothing is selected 
     }
   }
 
-  const handleAddingItems  = () => {
+  const handleAddingItems  = () => { /*(The IIE, 2026) */
+
+    //shortens everything
     const DishName = dishName.trim();
     const dishCourse= course.trim();
     const descriptionT = dishDescription.trim();
-    const costT =Number(price.trim());
+    const costT =Number(price.trim()) /*The amount type into a number instead of a sting */; 
 
-  if ( !DishName || !dishCourse || !selectedImage || !descriptionT || costT <= 0){
+  if ( !DishName || !dishCourse || !selectedImage || !descriptionT || costT <= 0) //Checks if the fields are empty by counting the length of all array items 
+    
+    {
       Alert.alert("Please fill all field to continue📄")
       console.log("Must fill in all fields.😒")
       return;
     }
-    const normalizedNew = DishName.toLowerCase();
+    const normalizedNew = DishName.toLowerCase(); // the initial variable which the items will be compared to 
 
     const exists = dishes.some(
-    d => d.dishName.trim().toLowerCase() === normalizedNew
+    d => d.dishName.trim().toLowerCase() === normalizedNew // Will search through the array to see if there is an item with the same name as the new item 
   );
      if (exists) {
     Alert.alert('Duplicate', `"${dishName}" is already in the list.`);
     return;
   }
-     const newDish: Dish = {
+     const newDish: Dish = {  // The items which have passed the verification checks will fill the array item fields 
     id: Math.random().toString(36).slice(2),
     dishName: dishName.trim(),
     price: costT,
@@ -106,7 +110,7 @@ export default function App() {
         <Text>{studentNumber}</Text>  
       </View>
       
-    <ScrollView contentContainerStyle ={{maxWidth: 800, maxHeight: 'auto', paddingBottom: 20,}}>
+    <ScrollView style= {{ height: 'auto', width : 'auto', marginBottom: 25}}>
       <View>
         <Text style={styles.FormHeading}>
           Fill the form below
@@ -129,7 +133,7 @@ export default function App() {
       </TouchableOpacity>
 
   <Dropdown
-  
+  /**(npm, 2025) */
     label="Select course"
     placeholder="Select course"
     options={COURSES.map((c) => ({ label: c, value: c }))}
@@ -183,15 +187,16 @@ export default function App() {
         </View>
       </View>
       
+      <TouchableOpacity onPress={handleAddingItems}>
+        <View style={styles.Button}>
+          <Entypo name="plus" size={30} color="#f8f4f4" />
+          <Text style={styles.buttonText}>Add</Text>
+        </View>
+      </TouchableOpacity>
       
     
 
       </View>
-      <TouchableOpacity onPress={handleAddingItems}>
-        <View style={styles.Button}>
-          <Entypo name="plus" size={30} color="#f8f4f4" />
-        </View>
-      </TouchableOpacity>
 
       
       </PaperProvider>
@@ -200,16 +205,19 @@ export default function App() {
 
 
 
+
+  >
     <FlatList
+
     data={dishes}
     keyExtractor= {(item) =>(item.id)}
-    ListEmptyComponent={() => (
+    ListEmptyComponent={() => ( /*(The IIE, 2026) */
       <View style={styles.emptyListBox}>
-        <Text style = {styles.emptyText}> Nothing Here Yet 💭</Text>
+        <Text style = {styles.emptyText}> No new dishes entered 🍽️ </Text>
       </View>
     )}
 
-    renderItem={({item}) => (
+    renderItem={({item}) => ( /*(The IIE, 2026) */
       <View style={styles.ListItemContainer} >
         <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
           <Image
@@ -222,7 +230,7 @@ export default function App() {
         </View>
 
         </View>
-        <Text>{item.description}</Text>
+        <Text style={styles.descriptionText}>{item.description}</Text>
 
         <View style = {styles.priceContainer}>
           <Text style  = {styles.priceText}> R{item.price}</Text>
@@ -252,7 +260,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f8f2f086",
+    backgroundColor: "#92bd7e91",
   },
 
   topBar: {
@@ -340,16 +348,19 @@ const styles = StyleSheet.create({
     width: 'auto',
     height: 'auto',
     alignItems: 'center',
-    borderRadius: 25
+    borderRadius: 25,
+    flexDirection: 'row'
   },
 
   buttonText: {
-    fontSize: 40,
+    fontSize: 20,
     fontWeight: 'bold',
     fontStyle: 'italic',
     fontFamily: 'Helvetica',
     shadowColor: 'rgba(102, 101, 101, 0.25)',
     shadowOffset: { width: 5, height:15,},
+    color: '#fff',
+    textTransform: 'uppercase'
 
     
   },
@@ -401,7 +412,7 @@ emptyListBox:{
     width: 'auto',
     alignSelf: 'center',
     height: 'auto',
-    backgroundColor: "rgba(223, 134, 74, 0.71)",
+    backgroundColor: "rgba(252, 184, 57, 0.71)",
     margin: 20,
   },
   priceText: {
@@ -414,7 +425,7 @@ emptyListBox:{
     flexDirection: 'row',
     justifyContent: 'flex-end',
     width: 200,
-    margin: 15
+    marginTop: 15
 
   },
   dropdownContainer: {
@@ -436,7 +447,12 @@ emptyListBox:{
   dishNameText: {
     fontWeight: "700",
     fontSize: 19,
-    color: "rgba(90, 86, 70, 0.92)",
+    color: "rgba(241, 102, 59, 0.92)",
+  },
+  descriptionText:{
+    fontSize: 15,
+    letterSpacing: 1.6,
+    padding: 10
   }
 
 
