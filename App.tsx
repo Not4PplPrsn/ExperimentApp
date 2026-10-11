@@ -459,3 +459,9 @@ emptyListBox:{
 
 
 });
+ /*
+ References 
+ Expo, 2026. ImagePicker. [online] Expo documentation. Available at: <https://docs.expo.dev/versions/latest/sdk/imagepicker/> [Accessed 10 October 2026].
+npm, 2025. react-native-paper-dropdown-2025. [online] npm. Available at: <https://www.npmjs.com/package/react-native-paper-dropdown-2025> [Accessed 3 October 2026].
+The IIE, T.I.I. of E., 2026. MAST5112_MM.docx. [online] Available at: <https://advtechonline.sharepoint.com/:w:/r/sites/TertiaryStudents/_layouts/15/Doc.aspx?sourcedoc=%7BE64EF930-F31D-42F3-ABDE-632C1339F1AF%7D&file=MAST5112_MM.docx&action=default&mobileredirect=true> [Accessed 8 September 2026].
+ */
