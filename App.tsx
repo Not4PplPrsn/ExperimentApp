@@ -61,7 +61,7 @@ export default function App() {
     const descriptionT = dishDescription.trim();
     const costT =Number(price.trim()) /*The amount type into a number instead of a sting */; 
 
-  if ( !DishName || !dishCourse || !selectedImage || !descriptionT || costT <= 0) //Checks if the fields are empty by counting the length of all array items 
+  if ( !DishName ||  !selectedImage || !descriptionT || !dishCourse || costT <= 0 )//Checks if the fields are empty by counting the length of all array items 
     
     {
       Alert.alert("Please fill all field to continue📄")
@@ -233,7 +233,7 @@ export default function App() {
         <Text style={styles.descriptionText}>{item.description}</Text>
 
         <View style = {styles.priceContainer}>
-          <Text style  = {styles.priceText}> R{item.price}</Text>
+          <Text style  = {styles.priceText}> R {item.price}</Text>
         </View>
       
       </View>
@@ -418,14 +418,17 @@ emptyListBox:{
   priceText: {
     fontStyle: 'italic',
     fontWeight: '600',
-    fontSize: 12,
+    fontSize: 14,
+    padding: 20
 
   },
   priceContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    width: 200,
-    marginTop: 15
+    width: 'auto',
+    marginTop: 15, 
+    alignSelf: 'flex-end',
+    marginLeft: 10
 
   },
   dropdownContainer: {
