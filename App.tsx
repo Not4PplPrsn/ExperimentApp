@@ -3,10 +3,9 @@ import { StyleSheet, Text, View, Image, TextInput, FlatList,TouchableOpacity,Scr
 import {useState} from 'react';
 import { Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { ImageBackground } from 'react-native';//(Expo, 2026)
 import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
-import { Ionicons, MaterialCommunityIcons,Entypo } from '@expo/vector-icons';
+import {Entypo } from '@expo/vector-icons';
 
 
 
@@ -38,7 +37,6 @@ export default function App() {
   const [dishes, setDishes] = useState<Dish[]>([]); /*This is the dish array for us to use and store all items  */
   const [selectedImage, setSelectedImage] = useState<any>(null)
 
-  const [menuVisible, setMenuVisible] = useState(false);
 
 
       const pickImage = async () => { //(Expo, 2026)
@@ -87,6 +85,7 @@ export default function App() {
     isDeleted: false
 
   };
+  //Adding the the newDish variable as an item in the array 
   setDishes(prev => [...prev, newDish]);
   Alert.alert('New item added')
 
