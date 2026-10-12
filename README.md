@@ -11,9 +11,12 @@ This app was commissioned by the restaurant chef and owner Mr. Christoffel for t
 
 
 ## Links and Repo(s)
+### Repo(s)
 - Mirror [https://github.com/Not4PplPrsn/ExperimentApp.git]
 - Maine Repo [https://github.com/EMECPE/mast5112-2026-g2-mast5112-poe-not4pplprsn.git]
 
+## Other Links 
+- YouTube [https://youtu.be/ig9MQKpLw9M]
 ## References
 
 Expo, 2026. ImagePicker. [online] Expo documentation. Available at: <https://docs.expo.dev/versions/latest/sdk/imagepicker/> [Accessed 10 October 2026].
