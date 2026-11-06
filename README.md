@@ -7,13 +7,19 @@ This app was commissioned by the restaurant chef and owner Mr. Christoffel for t
 1. To be able to see the items on th home page of the app and  track the items in app.
 2. To add new items to the existing menu that has been prepared.
 3. To allow the user to delete menu items.
-4. Ensure that items do not repeat when adding them into the existing list. 
+4. Ensure that items do not repeat when adding them into the existing list.
+
+
+### Changes Made 
 
 
 ## Links and Repo(s)
+### Repo(s)
 - Mirror [https://github.com/Not4PplPrsn/ExperimentApp.git]
 - Maine Repo [https://github.com/EMECPE/mast5112-2026-g2-mast5112-poe-not4pplprsn.git]
 
+## Other Links 
+- YouTube [https://youtu.be/ig9MQKpLw9M]
 ## References
 
 Expo, 2026. ImagePicker. [online] Expo documentation. Available at: <https://docs.expo.dev/versions/latest/sdk/imagepicker/> [Accessed 10 October 2026].
