@@ -259,7 +259,7 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#92bd7e91",
+    backgroundColor: "rgb(255, 255, 224)",
   },
 
   topBar: {
