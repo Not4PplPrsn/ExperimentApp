@@ -5,9 +5,11 @@
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",
     "@react-native-picker/picker": "2.11.4",
+    "@react-navigation/drawer": "^7.14.4",
     "expo": "^58.0.0",
     "expo-checkbox": "~58.0.2",
     "expo-image-picker": "~58.0.10",
+    "expo-linking": "~58.0.16",
     "expo-router": "~58.0.30",
     "expo-status-bar": "~58.0.4",
     "react": "19.3.0",
