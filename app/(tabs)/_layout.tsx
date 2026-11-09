@@ -10,14 +10,19 @@ import MenuSelection from './MenuSelection';
 
 export default function TabLayout() {
     return(
-        <Tabs>
+        <Tabs
+        screenOptions={{
+            headerShown: false,
+            
+        }}
+        >
 
                 <Tabs.Screen
                 name='index'
 
                 options={{
                     title: 'Home',
-                    tabBarIcon: (color) =>(<AntDesign name='home' size={28} color={'#ffff'}/>)
+                    tabBarIcon: (color) =>(<AntDesign name='home' size={28} color={'#dd2424'}/>)
                 }}
                 />
 
@@ -26,7 +31,7 @@ export default function TabLayout() {
 
                 options={{
                     title: 'Edit',
-                    tabBarIcon: (color) =>(<AntDesign name='edit' size={28} color={'#ffff'}/>)
+                    tabBarIcon: (color) =>(<AntDesign name='edit' size={28} color={'#18e433'}/>)
                 }}
                
                 />
@@ -36,7 +41,7 @@ export default function TabLayout() {
 
                 options={{
                     title: 'Menu',
-                    tabBarIcon: (color) =>(<AntDesign name='select' size={28} color={'#ffff'}/>)
+                    tabBarIcon: (color) =>(<AntDesign name='select' size={28} color={'#66db17'}/>)
                 }}
                 
                 />
