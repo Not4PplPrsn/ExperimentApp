@@ -20,14 +20,14 @@ import { Switch } from 'react-native';
 
 
 const History  = [
-{name: 'Deleted', path: './History/Deleted', icon: <MaterialIcons name="delete-outline" size={12} color="#000000" /> },
-{name: 'Cart', path: './History/Cart',  icon: <Ionicons name="cart-outline" size={12} color="#000000" />}
+{name: 'Deleted', path: '/History/Deleted', icon: <MaterialIcons name="delete-outline" size={12} color="#000000" /> },
+{name: 'Cart', path: '/History/Cart',  icon: <Ionicons name="cart-outline" size={12} color="#000000" />}
 
 ]
 
 const Editing = [
-    {name: 'Add', path: './Editing/Add', label: <MaterialIcons name="add-circle-outline" size={12} color="#000000" />},
-    {name: 'Remove', path: './Editing/Remove', label: <MaterialIcons name="remove-circle-outline" size={12} color="#000000" /> }
+    {name: 'Add', path: '/Editing/Add', icon: <MaterialIcons name="add-circle-outline" size={12} color="#000000" />},
+    {name: 'Remove', path: '/Editing/Remove', icon: <MaterialIcons name="remove-circle-outline" size={12} color="#000000" /> }
 ]
 
 
@@ -43,7 +43,32 @@ export default function RootLayout() {
                 headerShadowVisible: false,
                 headerShown: true,
 
-                title: 'Main'
+                title: 'Home'
+            }}
+            />
+
+            <Drawer.Screen
+            name='Editing/Add'
+            options={{
+                title: 'Add'
+            }}
+            />
+            <Drawer.Screen
+            name='Editing/Remove'
+            options={{
+                title: 'Remove'
+            }}
+            />
+            <Drawer.Screen
+            name='History/Cart'
+            options={{
+                title: 'Cart'
+            }}
+            />
+            <Drawer.Screen
+            name='History/Deleted'
+            options={{
+                title: 'Bin'
             }}
             />
         </Drawer>
@@ -54,7 +79,8 @@ function DrawerScroller(){
     const router = useRouter();
 
     const [expand, setExpand]= useState({
-        History:false
+        History:false,
+        Editing: false
     });
 
     const [items, setItems]= useState([/**(W3Schools, 2025) */
@@ -86,15 +112,45 @@ function DrawerScroller(){
                 />
             </View>
 
+
+            
+
             {expand.History&&
             History.map(items=>(
                 <DrawerItem
                 key={items.name}
                 label={items.name}
+                icon={() => items.icon}
  
                 onPress={() => router.push(items.path)}
                 />
             ))
+
+            }
+
+            <View> 
+                <Text> Editing</Text>
+
+                <Switch
+                value= {expand.Editing}
+
+                onValueChange={() => toggleSection('Editing')}
+                />
+            </View>
+            {expand.Editing && 
+            Editing.map(items => (
+
+
+                <DrawerItem
+                key={items.name}
+                label={items.name}
+
+                icon={() => items.icon}
+
+                onPress={() => router.push(items.path)}
+                />
+            ))
+
 
             }
             
