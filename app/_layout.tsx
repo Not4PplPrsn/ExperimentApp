@@ -34,6 +34,21 @@ const Editing = [
 export default function RootLayout() {
     return(
         <Drawer
+        screenOptions={{
+            headerShown: false,
+            drawerType: 'front',
+
+            drawerStyle: {
+                direction: 'ltr',
+                
+            },
+            drawerPosition: 'right',
+
+            headerTitle: '',
+            headerStyle:{
+                backgroundColor: 'rgb(255, 229, 180)'
+            }
+        }}
         drawerContent={() => <DrawerScroller/>} // This will show what ever content programme in the corresponding function 
         >
 
