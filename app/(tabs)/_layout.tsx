@@ -2,9 +2,6 @@ import {Tabs} from 'expo-router';
 
 import { Ionicons, MaterialIcons, Entypo, AntDesign,  } from '@expo/vector-icons';
  
-import EditingPage from './Editing';
-import HomePage from '.';
-import MenuSelection from './MenuSelection';
 
 
 
@@ -13,7 +10,16 @@ export default function TabLayout() {
         <Tabs
         screenOptions={{
             headerShown: false,
-            
+            tabBarStyle: {
+                backgroundColor: 'rgb(255, 229, 180)',
+                borderTopLeftRadius:10,
+                borderTopRightRadius: 10,
+                position: 'absolute'
+
+            },
+            tabBarInactiveTintColor: 'rgb(240, 248, 255)',
+            tabBarActiveTintColor: 'rgb(143, 188, 139)'
+
         }}
         >
 
@@ -22,7 +28,7 @@ export default function TabLayout() {
 
                 options={{
                     title: 'Home',
-                    tabBarIcon: (color) =>(<AntDesign name='home' size={28} color={'#dd2424'}/>)
+                    tabBarIcon: ({color}) =>(<AntDesign name='home' size={28} color={color as string}/>)
                 }}
                 />
 
@@ -31,7 +37,7 @@ export default function TabLayout() {
 
                 options={{
                     title: 'Edit',
-                    tabBarIcon: (color) =>(<AntDesign name='edit' size={28} color={'#18e433'}/>)
+                    tabBarIcon: ({color}) =>(<AntDesign name='edit' size={28} color={color as string}/>)
                 }}
                
                 />
@@ -41,7 +47,7 @@ export default function TabLayout() {
 
                 options={{
                     title: 'Menu',
-                    tabBarIcon: (color) =>(<AntDesign name='select' size={28} color={'#66db17'}/>)
+                    tabBarIcon: ({color}) =>(<AntDesign name='select' size={28} color={color as string}/>)
                 }}
                 
                 />
