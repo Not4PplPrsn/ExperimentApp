@@ -7,6 +7,8 @@ import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import {Entypo } from '@expo/vector-icons';
 
+import { DishList } from '../../assets/Functions/Lists/DishEntries';
+
 
 
 
@@ -104,10 +106,6 @@ export default function HomePage() {
   return (
     
     <View style={styles.container}>
-      <View style={styles.topBar} >
-        <Text style={styles.TopBarText}>{companyName}</Text> 
-        <Text>{studentNumber}</Text>  
-      </View>
       
     <ScrollView style= {{ height: 'auto', width : 'auto', marginBottom: 25}}>
       <View>
