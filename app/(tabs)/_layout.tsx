@@ -17,8 +17,9 @@ export default function TabLayout() {
                 position: 'absolute'
 
             },
-            tabBarInactiveTintColor: 'rgb(240, 248, 255)',
-            tabBarActiveTintColor: 'rgb(143, 188, 139)'
+            tabBarInactiveTintColor: 'rgba(245, 106, 26, 0.62)',
+            tabBarActiveTintColor: 'rgba(143, 188, 139, 0.73)',
+            
 
         }}
         >
