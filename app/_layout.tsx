@@ -4,13 +4,6 @@ import { useRouter } from 'expo-router';
 
 import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
 
-import Add from './Editing/Add';
-
-import Remove from './Editing/Remove';
-
-import Deleted from './History/Deleted';
-
-import Cart from './History/Cart';
 
 import { useState, } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, FlatList,TouchableOpacity,ScrollView  } from 'react-native';
@@ -46,8 +39,11 @@ export default function RootLayout() {
 
             headerTitle: '',
             headerStyle:{
-                backgroundColor: 'rgb(255, 229, 180)'
-            }
+                backgroundColor: 'rgb(255, 229, 180)',
+                
+            },
+            
+            
         }}
         drawerContent={() => <DrawerScroller/>} // This will show what ever content programme in the corresponding function 
         >
