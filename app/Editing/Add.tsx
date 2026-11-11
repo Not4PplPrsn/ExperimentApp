@@ -8,13 +8,196 @@ import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import {Entypo } from '@expo/vector-icons';
 
 
+ import { DishEntries } from '../../assets/Functions/DataProcessing';
+ import { COURSES } from '../../assets/Functions/DataProcessing';
+
+ import { CourseType } from '../../assets/Functions/DataProcessing';
+ import { useDishStore } from '../../assets/Functions/DataProcessing';
+
 export default function Add(){
+
+  const {entries, addDish} = useDishStore();
+    //empty variable for filling in and storing information
+    const [price, setPrice] = useState('');
+    const [dishName, setDishName] = useState('');
+    const [dishDescription, setDishDescription] = useState('');
+    const [course, setCourse] = useState<CourseType>("Entrée");
+  
+    const [dishes, setDishes] = useState<DishEntries[]>([]); /*This is the dish array for us to use and store all items  */
+    const [selectedImage, setSelectedImage] = useState<any>(null)
+
+          const pickImage = async () => { //(Expo, 2026)
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,//only allows images no other file types 
+      allowsEditing: false,// does not let the user crop or adjust the image.
+      quality: 1,//opens the image library on the device
+    });
+
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri); //does not show an image if nothing is selected 
+    }
+  };
+
+
+      const handleAdd = () => {
+
+        // store all the need version of my items so that i can store them and use them for easy error handling 
+      const nameTrimmed = dishName.trim();
+      const descriptionTrimmed = dishDescription.trim();
+      const courseTrimmed = course.trim();
+      const costT =Number(price.trim())
+      
+      /**Will check my word count with this variable  */
+      const wordCount = descriptionTrimmed.split(/\s+/).length; // groups character into words and counts then counts the grouped words as characters 
+
+      if (!nameTrimmed && 
+        !descriptionTrimmed &&  
+        !selectedImage && 
+        costT === 0){
+
+        Alert.alert("Please fill in all the fields")
+        return;
+      }
+      else if (nameTrimmed.length === 0) {
+        Alert.alert("Please fill your name")
+        return;
+      }
+
+      else if (wordCount < 0 || wordCount < 70){
+        Alert.alert("You must write up to 70 or more, words when describing your dish")
+        return;
+        
+      }
+
+      else if ( costT <= 150){
+        Alert.alert("The amount you enter must be more than R 150")
+        return;
+
+      }
+      else if ( courseTrimmed.length  == 0){
+        Alert.alert("Please select the course you would like to enter this dish as.")
+        return;
+
+      }
+      else if (!selectedImage){
+        Alert.alert("Add the image please")
+        return;
+        
+      }
+
+
+       
+
+      const newItem :DishEntries = {
+        name: nameTrimmed,
+        description: descriptionTrimmed,
+        course: courseTrimmed,
+        image: selectedImage,
+        price: costT,
+        isDeleted: false,
+        id: 0
+      }
+
+      addDish(newItem)
+
+      //Refresh all the form parts 
+      setCourse('Entrée');
+      setDishDescription('');
+      setDishName('');
+      setPrice('');
+      setSelectedImage(null);
+
+    }
+
+
+
+  
     return(
-        <View>
-            <Text>
-                Mew hi
-            </Text>
+    <PaperProvider>  
+
+
+      
+      <View style={styles.form}>
+
+    <View>
+    <View style = {{flexDirection: 'row', justifyContent: 'space-between'}}>
+      <TouchableOpacity onPress={pickImage}>
+
+          <Image source={{uri: selectedImage}}
+          style ={styles.pickedImageDisplay}/>
+ 
+      </TouchableOpacity>
+
+  <Dropdown
+  /**(npm, 2025) */
+    label="Select course"
+    placeholder="Select course"
+    options={COURSES.map((c) => ({ label: c, value: c }))}
+    value={course}
+    onSelect={(value) => setCourse(value as CourseType)}
+    mode="outlined"
+   menuContentStyle={styles.dropdownContainer}
+   
+  />
+
+    </View> 
+        
+
+    </View>
+
+      <View style={styles.formFields}>
+        <Text style={styles.inputSubheadings}>Name of Dish:</Text>
+        <TextInput
+          placeholder="Enter dish name"
+          value={dishName}
+          onChangeText={setDishName}
+          style={styles.input}
+        />
+      </View>
+
+      <View style={styles.formFields}>
+        <Text style={styles.inputSubheadings}>Description of Dish:</Text>
+        <TextInput
+          placeholder="Enter dish description"
+          value={dishDescription}
+          onChangeText={setDishDescription}
+          style={styles.descriptionInput}
+          multiline={true}
+          numberOfLines={4}
+          
+        />
+      </View>
+
+
+      <View style={styles.formFields}>
+        <Text style={styles.inputSubheadings}>Price of Dish:</Text>
+        <View style={{flexDirection: 'row'}}>
+        <Text style={{fontSize: 13, fontWeight: '600',}}>R</Text>
+        <TextInput
+          placeholder="Enter dish price"
+          value={price}
+          keyboardType='numeric'
+          onChangeText={setPrice}
+          style={styles.input}
+          
+        />
         </View>
+      </View>
+      
+      <TouchableOpacity onPress = {handleAdd}>
+        <View style={styles.Button}>
+          <Entypo name="plus" size={30} color="#f8f4f4" />
+          <Text style={styles.buttonText}>Add</Text>
+        </View>
+      </TouchableOpacity>
+      
+    
+
+      </View>
+
+      
+      </PaperProvider>
     );}
 
 
