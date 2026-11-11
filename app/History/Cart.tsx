@@ -6,7 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import {Entypo } from '@expo/vector-icons';
-
+import { Store } from '../../assets/Functions/Lists/Cart';
 
 export default function Cart (){return(
     <View style={styles.container}>
