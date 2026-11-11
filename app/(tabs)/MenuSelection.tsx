@@ -2,10 +2,16 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TextInput, FlatList,TouchableOpacity,ScrollView  } from 'react-native';
 import {useState} from 'react';
 import { Alert } from 'react-native';
+import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
+ import { DishEntries } from '../../assets/Functions/DataProcessing';
+
+ import { CourseType } from '../../assets/Functions/DataProcessing';
+
+
 
 export default function MenuSelection() {
     return( 
-        <View>
+        <View style={styles.container}>
             <Text> Hello</Text>
         </View>
     )
