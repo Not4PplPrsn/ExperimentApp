@@ -7,8 +7,9 @@ import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import {Entypo } from '@expo/vector-icons';
 
+
 export default function Cart (){return(
-    <View>
+    <View style={styles.container}>
         <Text>
             New page for the use of people 
         </Text>
