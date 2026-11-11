@@ -3,9 +3,13 @@ import { StyleSheet, Text, View, Image, TextInput, FlatList,TouchableOpacity,Scr
 import {useState} from 'react';
 import { Alert } from 'react-native';
 
+import { useRoute } from 'expo-router';
+
 export default function EditingPage () {
+
+  const router = useRoute();
     return(
-        <View>
+        <View style={styles.container}>
             <Text> Hello</Text>
         </View>
     )
