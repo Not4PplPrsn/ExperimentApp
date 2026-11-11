@@ -8,13 +8,12 @@ import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import {Entypo } from '@expo/vector-icons';
 
 import { DishList } from '../../assets/Functions/Lists/DishEntries';
-
+import { COURSES } from '../../assets/Functions/DataProcessing';
 
 
 
 export type Course = 'Main' | 'Dessert' | 'Entree'; /*The types will will act as a filler and in the dropdown menu */
 
-export const  COURSES: Course[] = ['Dessert', 'Main', 'Entree']; /*The choice for se of the  */
 export type Dish = {
   id: number;
   image: any;
