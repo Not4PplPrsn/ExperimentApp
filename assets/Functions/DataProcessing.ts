@@ -10,6 +10,9 @@ const bin = Trash;
 // these are type attributes 
 export type CourseType = 'All' | 'Entrée'  | 'Main' | 'Dessert'
 
+export const  COURSES: CourseType[] = ['Dessert', 'Main',  'Entrée']; /*The choice for se of the  */
+
+
  export type DishEntries = {  // attributes of the array 
     id : number,
     name : string,
@@ -39,10 +42,11 @@ addDish: (entry) => {
     const currentEntries = get().entries;
     const alreadyExists = currentEntries.some(
         (dish) => 
-            dish.name === entry.name&&
-            dish.course === entry.course&&
-            dish.price === entry.price &&
-            dish.description === entry.description
+            dish.name === entry.name ||
+            dish.course === entry.course ||
+            dish.price === entry.price ||
+            dish.description === entry.description ||
+            dish.image === entry.image
         
     );
 
