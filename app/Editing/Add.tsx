@@ -101,6 +101,8 @@ export default function Add(){
 
       addDish(newItem)
 
+      Alert.alert("New item has been added to the menu 🍽️ ")
+
       //Refresh all the form parts 
       setCourse('Entrée');
       setDishDescription('');
@@ -114,6 +116,8 @@ export default function Add(){
 
   
     return(
+
+    <ScrollView style={styles.container}>
     <PaperProvider>  
 
 
@@ -198,6 +202,7 @@ export default function Add(){
 
       
       </PaperProvider>
+      </ScrollView>
     );}
 
 
@@ -205,6 +210,7 @@ export default function Add(){
   container: {
     flex: 1,
     backgroundColor: "rgb(255, 255, 224)",
+    padding: '16%'
   },
 
   topBar: {
