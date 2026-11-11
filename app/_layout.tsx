@@ -33,6 +33,7 @@ export default function RootLayout() {
 
             drawerStyle: {
                 direction: 'ltr',
+                backgroundColor: 'rgb(255, 229, 180)'
                 
             },
             drawerPosition: 'right',
@@ -80,7 +81,7 @@ export default function RootLayout() {
             }}
             />
             <Drawer.Screen
-            name='History/Delete'
+            name='History/Deleted'
             options={{
                 title: 'Bin'
             }}
@@ -114,6 +115,8 @@ function DrawerScroller(){
             icon={() => <Ionicons name="home-outline" size={12} color="#000000" /> }
 
             onPress={() => router.push('/(tabs)')}
+
+            
             />
 
             <View>  {/**This landing button for the expanding the items and reveal the navigation buttons  */}
