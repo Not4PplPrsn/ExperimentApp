@@ -6,9 +6,11 @@ import * as ImagePicker from 'expo-image-picker';
 import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import {Entypo } from '@expo/vector-icons';
+import { Trash } from '../../assets/Functions/Lists/Deleted';
+import { DishEntries } from '../../assets/Functions/DataProcessing';
 
 export default function Deleted(){return(
-    <View>
+    <View style={styles.container}>
         <Text>
             New page for the use of people 
         </Text>
