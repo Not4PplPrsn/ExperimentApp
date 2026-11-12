@@ -10,6 +10,18 @@ import { Store } from '../../assets/Functions/Lists/Cart';
 
 export default function Cart (){return(
     <View style={styles.container}>
+
+      <View>
+
+      </View>
+
+      <View>
+
+      </View>
+
+      <View>
+        
+      </View>
         <Text>
             New page for the use of people 
         </Text>
@@ -60,7 +72,8 @@ const styles = StyleSheet.create({
     width: 350,
     backgroundColor: 'rgb(233, 197, 119)',
     padding: 20,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderRadius: '3.25%'
   },
   formFields: {
     flexDirection: 'column',

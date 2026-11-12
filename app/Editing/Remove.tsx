@@ -5,14 +5,29 @@ import { Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
-import {Entypo } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { Trash } from '../../assets/Functions/Lists/Deleted';
 import { DishEntries } from '../../assets/Functions/DataProcessing';
+import { useRouter } from 'expo-router';
+import { useDishStore } from '../../assets/Functions/DataProcessing';
+import { CourseType } from '../../assets/Functions/DataProcessing';
+import { COURSES } from '../../assets/Functions/DataProcessing';
+
 
 
 export default function Remove(){
+  const router = useRouter();
+
+  const {entries, removeDish}  = useDishStore();
     return(
         <View style={styles.container}>
+          <TouchableOpacity
+            onPress={() => router.back() }>
+              <View style= {{margin: 20}}> 
+                <Ionicons name = "arrow-back-circle-outline" color={'rgba(143, 188, 139, 0.73)'} size={48}/>
+              </View>
+            </TouchableOpacity>
+          
             <Text>Hellos jkdfalfj  lkljdfla </Text>
         </View>
 
@@ -62,7 +77,8 @@ const styles = StyleSheet.create({
     width: 350,
     backgroundColor: 'rgb(233, 197, 119)',
     padding: 20,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderRadius: '3.25%'
   },
   formFields: {
     flexDirection: 'column',

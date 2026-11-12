@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     width: 350,
     backgroundColor: 'rgb(233, 197, 119)',
     padding: 20,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderRadius: '3.25%'
   },
   formFields: {
     flexDirection: 'column',
