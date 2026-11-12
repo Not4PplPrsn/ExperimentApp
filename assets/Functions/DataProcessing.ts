@@ -8,7 +8,7 @@ const dishes = DishList;
 const bin = Trash;
 
 // these are type attributes 
-export type CourseType = 'All' | 'Entrée'  | 'Main' | 'Dessert'
+export type CourseType =  'Entrée'  | 'Main' | 'Dessert'
 
 export const  COURSES: CourseType[] = ['Dessert', 'Main',  'Entrée']; /*The choice for se of the  */
 
