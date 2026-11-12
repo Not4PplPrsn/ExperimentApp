@@ -5,7 +5,10 @@ import { Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
-import {Entypo } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
+
+import { useRouter } from 'expo-router';
+
 
 
  import { DishEntries } from '../../assets/Functions/DataProcessing';
@@ -15,15 +18,15 @@ import {Entypo } from '@expo/vector-icons';
  import { useDishStore } from '../../assets/Functions/DataProcessing';
 
 export default function Add(){
+  const router = useRouter();
 
-  const {entries, addDish} = useDishStore();
+  const { addDish} = useDishStore();
     //empty variable for filling in and storing information
     const [price, setPrice] = useState('');
     const [dishName, setDishName] = useState('');
     const [dishDescription, setDishDescription] = useState('');
     const [course, setCourse] = useState<CourseType>("Entrée");
   
-    const [dishes, setDishes] = useState<DishEntries[]>([]); /*This is the dish array for us to use and store all items  */
     const [selectedImage, setSelectedImage] = useState<any>(null)
 
           const pickImage = async () => { //(Expo, 2026)
@@ -64,7 +67,7 @@ export default function Add(){
         return;
       }
 
-      else if (wordCount < 0 || wordCount < 70){
+      else if (wordCount < 0 || wordCount <= 70){
         Alert.alert("You must write up to 70 or more, words when describing your dish")
         return;
         
@@ -117,9 +120,17 @@ export default function Add(){
   
     return(
 
-    <ScrollView style={styles.container}>
+
+
+    <View style={styles.container}>
     <PaperProvider>  
 
+          <TouchableOpacity
+            onPress={() => router.back() }>
+              <View style= {{margin: 20}}> 
+                <Ionicons name = "arrow-back-circle-outline" color={'rgba(143, 188, 139, 0.73)'} size={48}/>
+              </View>
+            </TouchableOpacity>
 
       
       <View style={styles.form}>
@@ -189,20 +200,21 @@ export default function Add(){
         </View>
       </View>
       
-      <TouchableOpacity onPress = {handleAdd}>
-        <View style={styles.Button}>
-          <Entypo name="plus" size={30} color="#f8f4f4" />
-          <Text style={styles.buttonText}>Add</Text>
-        </View>
-      </TouchableOpacity>
       
     
 
-      </View>
+      </View> 
+      <TouchableOpacity onPress = {handleAdd}>
+        <View style={styles.Button}>
+          <Entypo name="plus" size={45} color="#fdfdfd" />
+          
+        </View>
+      </TouchableOpacity>
+
 
       
       </PaperProvider>
-      </ScrollView>
+      </View>
     );}
 
 
@@ -210,7 +222,10 @@ export default function Add(){
   container: {
     flex: 1,
     backgroundColor: "rgb(255, 255, 224)",
-    padding: '16%'
+    padding: '17%',
+    justifyContent: 'center',
+    alignItems: 'center'
+
   },
 
   topBar: {
@@ -249,7 +264,8 @@ export default function Add(){
     width: 350,
     backgroundColor: 'rgb(233, 197, 119)',
     padding: 20,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderRadius: '.25%'
   },
   formFields: {
     flexDirection: 'column',
@@ -291,7 +307,7 @@ export default function Add(){
 
   },
   Button: {
-    backgroundColor: 'rgb(12, 150, 241)',
+    backgroundColor: 'rgba(143, 188, 139, 0.73)',
     padding: 5,
     margin: 6,
     alignSelf: 'center',
