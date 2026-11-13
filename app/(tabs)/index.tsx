@@ -28,7 +28,7 @@ export default function HomePage() {
       <ScrollView style= {{ height: 'auto', width : 'auto', marginBottom: 25}}>
 
 
-        <Text style= {styles.TopBarText}>Entrée</Text>
+        <Text style= {styles.courseHeading}>Entrée</Text>
   <ScrollView horizontal = {true}>     
     {entries.filter((entry) => entry.course === "Entrée"  )
       .slice(0.2)
@@ -60,7 +60,7 @@ export default function HomePage() {
         };
   </ScrollView>
 
-       <Text style= {styles.TopBarText}>Main</Text>
+       <Text style= {styles.courseHeading}>Main</Text>
    <ScrollView  horizontal = {true}>      
     {entries.filter((entry) => entry.course === "Main"  )
       .slice(0.2)
@@ -93,7 +93,7 @@ export default function HomePage() {
   </ScrollView>      
 
 
-        <Text style= {styles.TopBarText}>Dessert</Text>
+        <Text style= {styles.courseHeading}>Dessert</Text>
 
   <ScrollView  horizontal = {true}>
     {entries.filter((entry) => entry.course === "Dessert"  )
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(255, 255, 224)",
   },
 
-  TopBarText: {
+  courseHeading: {
     fontFamily: 'serif',
     fontWeight: 'bold',
     fontSize: 20,
