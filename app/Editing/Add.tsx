@@ -67,7 +67,7 @@ export default function Add(){
         return;
       }
 
-      else if (wordCount < 0 || wordCount <= 70){
+      else if (wordCount < 0 || wordCount < 70){
         Alert.alert("You must write up to 70 or more, words when describing your dish")
         return;
         
@@ -194,7 +194,7 @@ export default function Add(){
           value={price}
           keyboardType='numeric'
           onChangeText={setPrice}
-          style={styles.input}
+          style={styles.inputPrice}
           
         />
         </View>
@@ -228,19 +228,6 @@ export default function Add(){
 
   },
 
-  topBar: {
-
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-
-        paddingTop: 58,
-    paddingBottom: 16,
-    paddingHorizontal: 20,
-    backgroundColor: 'rgb(233, 197, 119)',
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-  },
   TopBarText: {
     fontFamily: 'Helvetica',
     fontWeight: 'bold',
@@ -259,13 +246,12 @@ export default function Add(){
   form:{
     justifyContent: 'space-between',
     flexDirection: 'column',
-    alignItems: 'flex-start',
     margin: 20,
     width: 350,
     backgroundColor: 'rgb(233, 197, 119)',
     padding: 20,
     alignSelf: 'center',
-    borderRadius: '.25%'
+    borderRadius: '2.5%'
   },
   formFields: {
     flexDirection: 'column',
@@ -284,14 +270,26 @@ export default function Add(){
     marginBottom: 5,
     flexDirection: 'column',
     padding: 7,
+    alignSelf: 'flex-start'
     
     
   },
-  placeholderStyle: {
-    color: 'rgba(116, 116, 111, 0.26)',
-    fontStyle: 'italic',
-    justifyContent: "flex-start"
+    inputPrice: {
+    backgroundColor: 'rgb(230, 227, 215)',
+    borderColor: 'gray',
+    height: "auto",
+    width: 126,
+    borderWidth: 0,
+    marginLeft: 4,
+    marginTop:5,
+    marginBottom: 5,
+    flexDirection: 'column',
+    padding: 7,
+    
+    
+    
   },
+
   descriptionInput: {
     height: 120,
     padding: 6,
@@ -341,7 +339,8 @@ export default function Add(){
   inputSubheadings: {
     fontWeight: 'bold',
     fontSize: 16,
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    alignSelf:'flex-start',
   },
   imageDesign: {
     borderRadius: '100%',
@@ -351,7 +350,7 @@ export default function Add(){
   width : 100,
   height: 100,
   borderRadius: 75,
-  borderWidth: 2,
+  borderWidth: 0.765,
   padding: 5,
   margin: 10,
   
