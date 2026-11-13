@@ -14,7 +14,7 @@ export default function TabLayout() {
                 backgroundColor: 'rgb(255, 229, 180)',
                 borderTopLeftRadius:10,
                 borderTopRightRadius: 10,
-                position: 'absolute'
+                    
 
             },
             tabBarInactiveTintColor: 'rgba(245, 106, 26, 0.62)',
