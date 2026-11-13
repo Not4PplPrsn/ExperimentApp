@@ -8,8 +8,12 @@ import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import {Entypo } from '@expo/vector-icons';
 import { Trash } from '../../assets/Functions/Lists/Deleted';
 import { DishEntries } from '../../assets/Functions/DataProcessing';
+import { useDishStore } from '../../assets/Functions/DataProcessing';
 
-export default function Deleted(){return(
+
+export default function Deleted(){
+  const {trash, restoreDish} = useDishStore()
+  return(
     <View style={styles.container}>
         <Text>
             New page for the use of people 

@@ -8,10 +8,31 @@ import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
  import { CourseType } from '../../assets/Functions/DataProcessing';
 
 import { COURSES } from '../../assets/Functions/DataProcessing';
+import { useDishStore } from '../../assets/Functions/DataProcessing';
 
 
 export default function MenuSelection() {
-      const [course, setCourse] = useState<CourseType>("Entrée");
+  const {entries, removeDish}  = useDishStore();
+  const [selectedCourse, setSelectedCourse] = useState<CourseType>("All");
+
+
+  const filteredItems = entries.filter((dish) =>
+  selectedCourse === 'All'
+    ? !dish.isDeleted &&
+      dish.name.trim() !== '' &&
+      dish.description.trim() !== '' &&
+      dish.price > 0 &&
+      dish.image
+    : dish.course === selectedCourse &&
+      !dish.isDeleted &&
+      dish.name.trim() !== '' &&
+      dish.description.trim() !== '' &&
+      dish.price > 0 &&
+      dish.image
+);
+      
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
 
     return( 
         <View style={styles.container}>
