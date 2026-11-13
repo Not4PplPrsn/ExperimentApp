@@ -6,8 +6,6 @@ import * as ImagePicker from 'expo-image-picker';
 import {  Provider as PaperProvider,Checkbox } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
-import { Trash } from '../../assets/Functions/Lists/Deleted';
-import { DishEntries } from '../../assets/Functions/DataProcessing';
 import { useRouter } from 'expo-router';
 import { useDishStore } from '../../assets/Functions/DataProcessing';
 import { CourseType } from '../../assets/Functions/DataProcessing';
@@ -279,7 +277,7 @@ emptyListBox:{
     fontStyle: 'italic',
     fontWeight: '600',
     fontSize: 14,
-    padding: 20
+    padding: 10
 
   },
   priceContainer: {
@@ -318,7 +316,7 @@ emptyListBox:{
     fontSize: 12,
     letterSpacing: 0.4,
     padding: 5,
-    margin: 17,
+    marginBottom: 2,
     flexWrap: 'nowrap'
   }
 
