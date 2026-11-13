@@ -7,222 +7,42 @@ import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import {Entypo } from '@expo/vector-icons';
 
+
+
 import { DishList } from '../../assets/Functions/Lists/DishEntries';
 import { COURSES } from '../../assets/Functions/DataProcessing';
 
+import { useDishStore } from '../../assets/Functions/DataProcessing';
 
 
-export type Course = 'Main' | 'Dessert' | 'Entree'; /*The types will will act as a filler and in the dropdown menu */
 
-export type Dish = {
-  id: number;
-  image: any;
-  dishName: string;
-  description: string;
-  price: number;
-  isDeleted: boolean; 
-  courseName: string; 
-};
+
 
 export default function HomePage() {
 
-  const companyName = "Mister Christoffel's";
-  const studentNumber = 'ST10470237';
-
-  //empty variable for filling in and storing information
-  const [price, setPrice] = useState('');
-  const [dishName, setDishName] = useState('');
-  const [dishDescription, setDishDescription] = useState('');
-  const [course, setCourse] = useState<Course>('Main');
-
-  const [dishes, setDishes] = useState<Dish[]>([]); /*This is the dish array for us to use and store all items  */
-  const [selectedImage, setSelectedImage] = useState<any>(null)
-
-
-
-      const pickImage = async () => { //(Expo, 2026)
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,//only allows images no other file types 
-      allowsEditing: false,// does not let the user crop or adjust the image.
-      quality: 1,//opens the image library on the device
-    });
-
-    if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri); //does not show an image if nothing is selected 
-    }
-  }
-
-  const handleAddingItems  = () => { /*(The IIE, 2026) */
-
-    //shortens everything
-    const DishName = dishName.trim();
-    const dishCourse= course.trim();
-    const descriptionT = dishDescription.trim();
-    const costT =Number(price.trim()) /*The amount type into a number instead of a sting */; 
-
-  if ( !DishName ||  !selectedImage || !descriptionT || !dishCourse || costT <= 0 )//Checks if the fields are empty by counting the length of all array items 
-    
-    {
-      Alert.alert("Please fill all field to continue📄")
-      console.log("Must fill in all fields.😒")
-      return;
-    }
-    const normalizedNew = DishName.toLowerCase(); // the initial variable which the items will be compared to 
-
-    const exists = dishes.some(
-    d => d.dishName.trim().toLowerCase() === normalizedNew // Will search through the array to see if there is an item with the same name as the new item 
-  );
-     if (exists) {
-    Alert.alert('Duplicate', `"${dishName}" is already in the list.`);
-    return;
-  }
-     const newDish: Dish = {  // The items which have passed the verification checks will fill the array item fields 
-    id: Math.random().toString(36).slice(2),
-    dishName: dishName.trim(),
-    price: costT,
-    image: selectedImage,
-    description: descriptionT,
-    courseName: dishCourse,
-    isDeleted: false
-
-  };
-  //Adding the the newDish variable as an item in the array 
-  setDishes(prev => [...prev, newDish]);
-  Alert.alert('New item added')
-
-  // Reset the form's fields 
-
-  setDishName('');
-  setPrice('');
-  setCourse('Main');
-  setDishName('');
-  setDishDescription('');
-  setSelectedImage(null);
-
-  }
-
+  const {entries} = useDishStore()
 
   return (
-    
     <View style={styles.container}>
       
-    <ScrollView style= {{ height: 'auto', width : 'auto', marginBottom: 25}}>
-      <View>
-        <Text style={styles.FormHeading}>
-          Fill the form below
-        </Text>
-      </View>
-      
-    <PaperProvider>  
+      <ScrollView style= {{ height: 'auto', width : 'auto', marginBottom: 25}}>
 
 
-      
-      <View style={styles.form}>
-
-    <View>
-    <View style = {{flexDirection: 'row', justifyContent: 'space-between'}}>
-      <TouchableOpacity onPress={pickImage}>
-
-          <Image source={{uri: selectedImage}}
-          style ={styles.pickedImageDisplay}/>
- 
-      </TouchableOpacity>
-
-  <Dropdown
-  /**(npm, 2025) */
-    label="Select course"
-    placeholder="Select course"
-    options={COURSES.map((c) => ({ label: c, value: c }))}
-    value={course}
-    onSelect={(value) => setCourse(value as Course)}
-    mode="outlined"
-   menuContentStyle={styles.dropdownContainer}
-   
-  />
-
-    </View> 
-        
-    </View>
-
-      <View style={styles.formFields}>
-        <Text style={styles.inputSubheadings}>Name of Dish:</Text>
-        <TextInput
-          placeholder="Enter dish name"
-          value={dishName}
-          onChangeText={setDishName}
-          style={styles.input}
-        />
-      </View>
-
-      <View style={styles.formFields}>
-        <Text style={styles.inputSubheadings}>Description of Dish:</Text>
-        <TextInput
-          placeholder="Enter dish description"
-          value={dishDescription}
-          onChangeText={setDishDescription}
-          style={styles.descriptionInput}
-          multiline={true}
-          numberOfLines={4}
-          
-        />
-      </View>
-
-
-      <View style={styles.formFields}>
-        <Text style={styles.inputSubheadings}>Price of Dish:</Text>
-        <View style={{flexDirection: 'row'}}>
-        <Text style={{fontSize: 13, fontWeight: '600',}}>R</Text>
-        <TextInput
-          placeholder="Enter dish price"
-          value={price}
-          keyboardType='numeric'
-          onChangeText={setPrice}
-          style={styles.input}
-          
-        />
-        </View>
-      </View>
-      
-      <TouchableOpacity onPress={handleAddingItems}>
-        <View style={styles.Button}>
-          <Entypo name="plus" size={30} color="#f8f4f4" />
-          <Text style={styles.buttonText}>Add</Text>
-        </View>
-      </TouchableOpacity>
-      
-    
-
-      </View>
+        <Text style= {styles.TopBarText}>Entrée</Text>
+  <ScrollView horizontal = {true}>     
+    {entries.filter((entry) => entry.course === "Entrée"  )
+      .slice(0.2)
+      .map((item) => (
 
       
-      </PaperProvider>
-
-
-
-
-
-
-  >
-    <FlatList
-
-    data={dishes}
-    keyExtractor= {(item) =>(item.id)}
-    ListEmptyComponent={() => ( /*(The IIE, 2026) */
-      <View style={styles.emptyListBox}>
-        <Text style = {styles.emptyText}> No new dishes entered 🍽️ </Text>
-      </View>
-    )}
-
-    renderItem={({item}) => ( /*(The IIE, 2026) */
       <View style={styles.ListItemContainer} >
         <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
           <Image
           source={item.image}
           style ={styles.pickedImageDisplay}
           />
-        <View style ={{flexDirection: 'column', padding:4}}>
-          <Text style={styles.dishNameText}>{item.dishName}</Text>
-          <Text style={styles.courseSelected}>{item.courseName}</Text>
+        <View >
+          <Text style={styles.dishNameText}>{item.name}</Text>
         </View>
 
         </View>
@@ -233,22 +53,84 @@ export default function HomePage() {
         </View>
       
       </View>
-    )}
-    
-    />
+
+      
+
+    ))
+        };
+  </ScrollView>
+
+       <Text style= {styles.TopBarText}>Main</Text>
+   <ScrollView  horizontal = {true}>      
+    {entries.filter((entry) => entry.course === "Main"  )
+      .slice(0.2)
+      .map((item) => (
+
+        
+      <View style={styles.ListItemContainer} >
+        <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
+          <Image
+          source={item.image}
+          style ={styles.pickedImageDisplay}
+          />
+        <View >
+          <Text style={styles.dishNameText}>{item.name}</Text>
+        </View>
+
+        </View>
+        <Text style={styles.descriptionText}>{item.description}</Text>
+
+        <View style = {styles.priceContainer}>
+          <Text style  = {styles.priceText}> R {item.price}</Text>
+        </View>
+      
+      </View>
+
+      
+
+    ))
+        };
+  </ScrollView>      
 
 
+        <Text style= {styles.TopBarText}>Dessert</Text>
 
+  <ScrollView  horizontal = {true}>
+    {entries.filter((entry) => entry.course === "Dessert"  )
+      .slice(0.2)
+      .map((item) => (
 
+        
+      <View style={styles.ListItemContainer} >
+        <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
+          <Image
+          source={item.image}
+          style ={styles.pickedImageDisplay}
+          />
+        <View >
+          <Text style={styles.dishNameText}>{item.name}</Text>
+        </View>
 
+        </View>
+        <Text style={styles.descriptionText}>{item.description}</Text>
 
+        <View style = {styles.priceContainer}>
+          <Text style  = {styles.priceText}> R {item.price}</Text>
+        </View>
+      
+      </View>
 
+      
 
+    ))
+        };
+  </ScrollView>
+        
 
-
-</ScrollView>
+      </ScrollView>
       <StatusBar style="auto" />
     </View>
+
     
   );
 }
@@ -259,25 +141,15 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(255, 255, 224)",
   },
 
-  topBar: {
-
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-
-        paddingTop: 58,
-    paddingBottom: 16,
-    paddingHorizontal: 20,
-    backgroundColor: 'rgb(233, 197, 119)',
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-  },
   TopBarText: {
-    fontFamily: 'Helvetica',
+    fontFamily: 'serif',
     fontWeight: 'bold',
     fontSize: 20,
     textTransform: 'uppercase',
     fontStyle: 'italic',
+    marginStart : '10%',
+    marginTop: '20%',
+    letterSpacing: 2
   },
    
   baselineText :{
@@ -381,7 +253,7 @@ const styles = StyleSheet.create({
   width : 100,
   height: 100,
   borderRadius: 75,
-  borderWidth: 2,
+  borderWidth: 0.15,
   padding: 5,
   margin: 10,
   
@@ -405,17 +277,19 @@ emptyListBox:{
   },
 
   ListItemContainer: {
-    width: 'auto',
+    width: 350,
+    
     alignSelf: 'center',
-    height: 'auto',
-    backgroundColor: "rgba(252, 184, 57, 0.71)",
+    height: 470,
+    backgroundColor: "rgba(143, 188, 139, 0.73)",
     margin: 20,
+    borderRadius: 20
   },
   priceText: {
     fontStyle: 'italic',
     fontWeight: '600',
     fontSize: 14,
-    padding: 20
+    padding: 5
 
   },
   priceContainer: {
@@ -446,12 +320,15 @@ emptyListBox:{
   dishNameText: {
     fontWeight: "700",
     fontSize: 19,
-    color: "rgba(241, 102, 59, 0.92)",
-  },
+    color: "rgba(128, 121, 119, 0.92)",
+    margin: 5,
+    width: 105  },
   descriptionText:{
-    fontSize: 15,
-    letterSpacing: 1.6,
-    padding: 10
+    fontSize: 13,
+    letterSpacing: 0.4,
+    padding: 5,
+    margin: 17,
+    flexWrap: 'nowrap'
   }
 
 
