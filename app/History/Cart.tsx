@@ -5,26 +5,66 @@ import { Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
-import {Entypo } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { Store } from '../../assets/Functions/Lists/Cart';
+import { useRouter } from 'expo-router';
+import { useCartStore } from '../../assets/Functions/DataProcessing';
 
-export default function Cart (){return(
+export default function Cart (){
+  const router = useRouter();
+  const {removeFromCart, cart} = useCartStore()
+  
+  return(
     <View style={styles.container}>
 
-      <View>
+          <TouchableOpacity
+            onPress={() => router.back() }>
+              <View style= {{margin: 20}}> 
+                <Ionicons name = "arrow-back-circle-outline" color={'rgba(143, 188, 139, 0.73)'} size={48}/>
+              </View>
+            </TouchableOpacity>
 
-      </View>
 
-      <View>
 
-      </View>
+    <ScrollView>  
+      <FlatList
+        data={cart}
+        renderItem={({item}) => (
+                <View style={styles.ListItemContainer} >
+                  
+                  <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
+                    <Image
+                    source={item.image}
+                    style ={styles.pickedImageDisplay}
+                    />
+                  <View >
+                    <Text style={styles.dishNameText}>{item.name}</Text>
+                  </View>
+          
+                  </View>
+                  <Text style={styles.descriptionText}>{item.description}</Text>
+          
+                  <View style = {styles.priceContainer}>
+                    <Text style  = {styles.priceText}> R {item.price}</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                      <View style = {styles.Button}>  
+                        <MaterialIcons name="settings-backup-restore" size={25} color="#f5f5f5" />
+                      </View>
+                    </TouchableOpacity>
+          
+                </View>     
+          
+        )}
 
-      <View>
-        
-      </View>
-        <Text>
-            New page for the use of people 
-        </Text>
+        keyExtractor={(item) => item.id.toString()}
+        ListEmptyComponent={(item) => (
+          <View style = {styles.emptyListBox}>
+            <Text style={styles.emptyText}>All selected cart items will be stored here📄 </Text>
+          </View>
+        )}
+      />
+    </ScrollView>  
     </View>
 )}
 
@@ -164,10 +204,10 @@ const styles = StyleSheet.create({
   margin: 10,
   
 },
+
 emptyListBox:{
-    borderWidth: 3,
-    borderColor: "#111111",
-    borderStyle: "dashed",
+    borderWidth:0.25,
+    borderColor: "#d84f9f",
     paddingVertical: 30,
     paddingHorizontal: 20,
     alignItems: "center",
@@ -176,11 +216,12 @@ emptyListBox:{
 },
   emptyText: {
     fontSize: 15,
-    fontWeight: "bold",
+    fontWeight: "500",
     color: "#111111",
     letterSpacing: 2.15,
     fontFamily: 'Gothic'
   },
+
 
   ListItemContainer: {
     width: 'auto',
