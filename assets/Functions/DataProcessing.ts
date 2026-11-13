@@ -42,11 +42,7 @@ addDish: (entry) => {
     const currentEntries = get().entries;
     const alreadyExists = currentEntries.some(
         (dish) => 
-            dish.name === entry.name ||
-            dish.course === entry.course ||
-            dish.price === entry.price ||
-            dish.description === entry.description ||
-            dish.image === entry.image
+            dish.name.toLowerCase() === entry.name.toLocaleLowerCase() 
         
     );
 
