@@ -5,19 +5,65 @@ import { Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
-import {Entypo } from '@expo/vector-icons';
-import { Trash } from '../../assets/Functions/Lists/Deleted';
-import { DishEntries } from '../../assets/Functions/DataProcessing';
+import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { useDishStore } from '../../assets/Functions/DataProcessing';
 
 
 export default function Deleted(){
+  const router = useRouter();
   const {trash, restoreDish} = useDishStore()
+
   return(
     <View style={styles.container}>
-        <Text>
-            New page for the use of people 
-        </Text>
+          <TouchableOpacity
+            onPress={() => router.back() }>
+              <View style= {{margin: 20}}> 
+                <Ionicons name = "arrow-back-circle-outline" color={'rgba(143, 188, 139, 0.73)'} size={48}/>
+              </View>
+            </TouchableOpacity>
+
+    <ScrollView>  
+      <FlatList
+        data={trash}
+        renderItem={({item}) => (
+                <View style={styles.ListItemContainer} >
+                  
+                  <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
+                    <Image
+                    source={item.image}
+                    style ={styles.pickedImageDisplay}
+                    />
+                  <View >
+                    <Text style={styles.dishNameText}>{item.name}</Text>
+                    <Text style={styles.courseNameText}>{item.course}</Text>
+                  </View>
+          
+                  </View>
+                  <Text style={styles.descriptionText}>{item.description}</Text>
+          
+                  <View style = {styles.priceContainer}>
+                    <Text style  = {styles.priceText}> R {item.price}</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => restoreDish(item.id)}>
+                      <View style = {styles.Button}>  
+                        <MaterialIcons name="settings-backup-restore" size={25} color="#f5f5f5" />
+                      </View>
+                    </TouchableOpacity>
+          
+                </View>     
+          
+        )}
+
+        keyExtractor={(item) => item.id.toString()}
+        ListEmptyComponent={(item) => (
+          <View style = {styles.emptyListBox}>
+            <Text style={styles.emptyText}>Deleted items will appear on this page.📄 </Text>
+          </View>
+        )}
+      />
+    </ScrollView>  
+
     </View>
 )}
 
@@ -151,15 +197,15 @@ const styles = StyleSheet.create({
   width : 100,
   height: 100,
   borderRadius: 75,
-  borderWidth: 2,
+  borderWidth: 0.15,
   padding: 5,
   margin: 10,
   
 },
+
 emptyListBox:{
-    borderWidth: 3,
-    borderColor: "#111111",
-    borderStyle: "dashed",
+    borderWidth:0.25,
+    borderColor: "#d84f9f",
     paddingVertical: 30,
     paddingHorizontal: 20,
     alignItems: "center",
@@ -168,18 +214,20 @@ emptyListBox:{
 },
   emptyText: {
     fontSize: 15,
-    fontWeight: "bold",
+    fontWeight: "500",
     color: "#111111",
     letterSpacing: 2.15,
     fontFamily: 'Gothic'
   },
 
   ListItemContainer: {
-    width: 'auto',
+    width: 350,
+    
     alignSelf: 'center',
-    height: 'auto',
-    backgroundColor: "rgba(252, 184, 57, 0.71)",
+    height: 470,
+    backgroundColor: "rgba(143, 188, 139, 0.73)",
     margin: 20,
+    borderRadius: 20
   },
   priceText: {
     fontStyle: 'italic',
@@ -216,13 +264,25 @@ emptyListBox:{
   dishNameText: {
     fontWeight: "700",
     fontSize: 19,
-    color: "rgba(241, 102, 59, 0.92)",
-  },
+    color: "rgba(128, 121, 119, 0.92)",
+    margin: 5,
+    width: 105  },
   descriptionText:{
-    fontSize: 15,
-    letterSpacing: 1.6,
-    padding: 10
-  }
+    fontSize: 12,
+    letterSpacing: 0.4,
+    padding: 5,
+    marginBottom: 2,
+    flexWrap: 'nowrap'
+  },
+
+
+    courseNameText: {
+    fontWeight: "700",
+    fontSize: 19,
+    color: "rgba(192, 103, 133, 0.92)",
+  },
+
+  
 
 
 
