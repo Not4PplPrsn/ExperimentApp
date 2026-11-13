@@ -7,12 +7,20 @@ import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 
  import { CourseType } from '../../assets/Functions/DataProcessing';
 
+import { COURSES } from '../../assets/Functions/DataProcessing';
 
 
 export default function MenuSelection() {
+      const [course, setCourse] = useState<CourseType>("Entrée");
+
     return( 
         <View style={styles.container}>
             <Text> Hello</Text>
+
+
+            <View>
+
+            </View>
         </View>
     )
 }
