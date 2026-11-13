@@ -21,7 +21,6 @@ export default function Remove(){
   const {entries, removeDish}  = useDishStore();
   const [selectedCourse, setSelectedCourse] = useState<CourseType>("All");
 
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
   const filteredItems = entries.filter((dish) =>
   selectedCourse === 'All'
@@ -67,20 +66,15 @@ export default function Remove(){
    
   />
 
-  <View >
+  <ScrollView horizontal={true} >
   <FlatList
   data={filteredItems}
   renderItem={({ item }) => {
     
 
     return (
-        
+      
       <View style={styles.ListItemContainer} >
-          <TouchableOpacity onPress={() => removeDish(item.id)}>
-            <View style = {styles.Button}>  
-              <Ionicons name="trash-outline" size={25} color="#f5f5f5" />
-            </View>
-          </TouchableOpacity>
         
         <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
           <Image
@@ -97,13 +91,18 @@ export default function Remove(){
         <View style = {styles.priceContainer}>
           <Text style  = {styles.priceText}> R {item.price}</Text>
         </View>
-      
+                <TouchableOpacity onPress={() => removeDish(item.id)}>
+            <View style = {styles.Button}>  
+              <Ionicons name="trash-outline" size={25} color="#f5f5f5" />
+            </View>
+          </TouchableOpacity>
+
       </View>     
     );
   }}
 
   keyExtractor={(item) => item.id.toString()/**(W3Schools, 2025) */} // turns all items into string form
-/></View>
+/></ScrollView>
             
         </View>
 </PaperProvider>        
@@ -199,11 +198,11 @@ const styles = StyleSheet.create({
   },
   Button: {
     backgroundColor: 'rgb(228, 82, 46)',
-    padding: 5,
+    padding: 1.2,
     margin: 6,
     alignSelf: 'center',
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
     alignItems: 'center',
     borderRadius: 25,
         justifyContent: 'center',
@@ -316,7 +315,7 @@ emptyListBox:{
     margin: 5,
     width: 105  },
   descriptionText:{
-    fontSize: 13,
+    fontSize: 12,
     letterSpacing: 0.4,
     padding: 5,
     margin: 17,
