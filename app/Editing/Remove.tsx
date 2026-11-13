@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TextInput, FlatList,TouchableOpacity,Scr
 import {useState} from 'react';
 import { Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import {  Provider as PaperProvider } from 'react-native-paper';
+import {  Provider as PaperProvider,Checkbox } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { Trash } from '../../assets/Functions/Lists/Deleted';
@@ -19,7 +19,28 @@ export default function Remove(){
   const router = useRouter();
 
   const {entries, removeDish}  = useDishStore();
+  const [selectedCourse, setSelectedCourse] = useState<CourseType>("All");
+
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
+  const filteredItems = entries.filter((dish) =>
+  selectedCourse === 'All'
+    ? !dish.isDeleted &&
+      dish.name.trim() !== '' &&
+      dish.description.trim() !== '' &&
+      dish.price > 0 &&
+      dish.image
+    : dish.course === selectedCourse &&
+      !dish.isDeleted &&
+      dish.name.trim() !== '' &&
+      dish.description.trim() !== '' &&
+      dish.price > 0 &&
+      dish.image
+);
+
+
     return(
+    <PaperProvider>      
         <View style={styles.container}>
           <TouchableOpacity
             onPress={() => router.back() }>
@@ -27,9 +48,65 @@ export default function Remove(){
                 <Ionicons name = "arrow-back-circle-outline" color={'rgba(143, 188, 139, 0.73)'} size={48}/>
               </View>
             </TouchableOpacity>
-          
-            <Text>Hellos jkdfalfj  lkljdfla </Text>
+            
+  <TouchableOpacity
+  >
+    
+  </TouchableOpacity>
+  
+  <Dropdown
+  /**(npm, 2025) */
+    
+    label="Select course"
+    placeholder="Select course"
+    options={COURSES.map((c) => ({ label: c, value: c }))}
+    value={selectedCourse}
+    onSelect={(value) => setSelectedCourse(value as CourseType)}
+    mode="outlined"
+   menuContentStyle={styles.dropdownContainer}
+   
+  />
+
+  <View >
+  <FlatList
+  data={filteredItems}
+  renderItem={({ item }) => {
+    
+
+    return (
+        
+      <View style={styles.ListItemContainer} >
+          <TouchableOpacity onPress={() => removeDish(item.id)}>
+            <View style = {styles.Button}>  
+              <Ionicons name="trash-outline" size={25} color="#f5f5f5" />
+            </View>
+          </TouchableOpacity>
+        
+        <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
+          <Image
+          source={item.image}
+          style ={styles.pickedImageDisplay}
+          />
+        <View >
+          <Text style={styles.dishNameText}>{item.name}</Text>
         </View>
+
+        </View>
+        <Text style={styles.descriptionText}>{item.description}</Text>
+
+        <View style = {styles.priceContainer}>
+          <Text style  = {styles.priceText}> R {item.price}</Text>
+        </View>
+      
+      </View>     
+    );
+  }}
+
+  keyExtractor={(item) => item.id.toString()/**(W3Schools, 2025) */} // turns all items into string form
+/></View>
+            
+        </View>
+</PaperProvider>        
 
 );}
 
@@ -39,6 +116,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgb(255, 255, 224)",
+    
   },
 
   topBar: {
@@ -120,15 +198,16 @@ const styles = StyleSheet.create({
 
   },
   Button: {
-    backgroundColor: 'rgb(12, 150, 241)',
+    backgroundColor: 'rgb(228, 82, 46)',
     padding: 5,
     margin: 6,
     alignSelf: 'center',
-    width: 'auto',
-    height: 'auto',
+    width: 50,
+    height: 50,
     alignItems: 'center',
     borderRadius: 25,
-    flexDirection: 'row'
+        justifyContent: 'center',
+
   },
 
   buttonText: {
@@ -164,11 +243,12 @@ const styles = StyleSheet.create({
   width : 100,
   height: 100,
   borderRadius: 75,
-  borderWidth: 2,
+  borderWidth: 0.15,
   padding: 5,
   margin: 10,
   
 },
+
 emptyListBox:{
     borderWidth: 3,
     borderColor: "#111111",
@@ -188,11 +268,13 @@ emptyListBox:{
   },
 
   ListItemContainer: {
-    width: 'auto',
+    width: 350,
+    
     alignSelf: 'center',
-    height: 'auto',
-    backgroundColor: "rgba(252, 184, 57, 0.71)",
+    height: 470,
+    backgroundColor: "rgba(143, 188, 139, 0.73)",
     margin: 20,
+    borderRadius: 20
   },
   priceText: {
     fontStyle: 'italic',
@@ -216,6 +298,7 @@ emptyListBox:{
   alignSelf: 'flex-end',
   alignItems: 'center',
   marginTop: 2.5,
+  
   },
 
   courseSelected: {
@@ -229,13 +312,17 @@ emptyListBox:{
   dishNameText: {
     fontWeight: "700",
     fontSize: 19,
-    color: "rgba(241, 102, 59, 0.92)",
-  },
+    color: "rgba(128, 121, 119, 0.92)",
+    margin: 5,
+    width: 105  },
   descriptionText:{
-    fontSize: 15,
-    letterSpacing: 1.6,
-    padding: 10
+    fontSize: 13,
+    letterSpacing: 0.4,
+    padding: 5,
+    margin: 17,
+    flexWrap: 'nowrap'
   }
+
 
 
 
