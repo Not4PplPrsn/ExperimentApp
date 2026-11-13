@@ -4,6 +4,7 @@ import {useState} from 'react';
 import { Alert } from 'react-native';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
  import { DishEntries } from '../../assets/Functions/DataProcessing';
+import { useCartStore } from '../../assets/Functions/DataProcessing';
 
  import { CourseType } from '../../assets/Functions/DataProcessing';
 
@@ -14,6 +15,7 @@ import { useDishStore } from '../../assets/Functions/DataProcessing';
 export default function MenuSelection() {
   const {entries, removeDish}  = useDishStore();
   const [selectedCourse, setSelectedCourse] = useState<CourseType>("All");
+  const {cart, addToCart} = useCartStore()
 
 
   const filteredItems = entries.filter((dish) =>
