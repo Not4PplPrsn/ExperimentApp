@@ -3,14 +3,34 @@ import { StyleSheet, Text, View, Image, TextInput, FlatList,TouchableOpacity,Scr
 import {useState} from 'react';
 import { Alert } from 'react-native';
 
-import { useRoute } from 'expo-router';
+import { useRouter } from 'expo-router';
 
 export default function EditingPage () {
 
-  const router = useRoute();
+  const router = useRouter();
     return(
         <View style={styles.container}>
-            <Text> Hello</Text>
+          <View>
+            <TouchableOpacity
+            onPress={() => router.push('/Editing/Add')}
+            >
+              <View style= {styles.addNavButton}>
+              <Text style = {styles.buttonText}>
+                Add Items
+              </Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+            onPress={() => router.push('/Editing/Remove')}
+            >
+              <View style = {styles.removeNavButton}>
+              <Text style = {styles.buttonText}>
+               Remove Items
+              </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
     )
 }
@@ -19,6 +39,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "rgb(255, 255, 224)",
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   topBar: {
@@ -98,10 +120,10 @@ const styles = StyleSheet.create({
     
 
   },
-  Button: {
-    backgroundColor: 'rgb(12, 150, 241)',
-    padding: 5,
-    margin: 6,
+  addNavButton: {
+    backgroundColor: 'rgb(120, 168, 201)',
+    padding: 15,
+    margin:30,
     alignSelf: 'center',
     width: 'auto',
     height: 'auto',
@@ -109,6 +131,18 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     flexDirection: 'row'
   },
+    removeNavButton: {
+    backgroundColor: 'rgba(143, 188, 139, 0.73)',
+    padding: 15,
+    margin:30,
+    alignSelf: 'center',
+    width: 'auto',
+    height: 'auto',
+    alignItems: 'center',
+    borderRadius: 25,
+    flexDirection: 'row'
+  },
+
 
   buttonText: {
     fontSize: 20,
