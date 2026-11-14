@@ -39,6 +39,7 @@ export default function Cart (){
                     />
                   <View >
                     <Text style={styles.dishNameText}>{item.name}</Text>
+                    <Text style={styles.courseNameText}>{item.course}</Text>
                   </View>
           
                   </View>
@@ -49,7 +50,7 @@ export default function Cart (){
                   </View>
                   <TouchableOpacity onPress={() => removeFromCart(item.id)}>
                       <View style = {styles.Button}>  
-                        <MaterialIcons name="settings-backup-restore" size={25} color="#f5f5f5" />
+                        <Ionicons name="trash-outline" size={25} color="#f5f5f5" />
                       </View>
                     </TouchableOpacity>
           
@@ -57,12 +58,12 @@ export default function Cart (){
           
         )}
 
-        keyExtractor={(item) => item.id.toString()}
-        ListEmptyComponent={(item) => (
+        keyExtractor={(item, index) => item ?.id ?.toString() || index.toString() }
+        ListEmptyComponent={
           <View style = {styles.emptyListBox}>
             <Text style={styles.emptyText}>All selected cart items will be stored here📄 </Text>
           </View>
-        )}
+        }
         
       />
     </ScrollView>  
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
 
   },
   Button: {
-    backgroundColor: 'rgb(12, 150, 241)',
+    backgroundColor: 'rgb(241, 27, 12)',
     padding: 5,
     margin: 6,
     alignSelf: 'center',
@@ -225,11 +226,13 @@ emptyListBox:{
 
 
   ListItemContainer: {
-    width: 'auto',
+    width: 350,
+    
     alignSelf: 'center',
-    height: 'auto',
-    backgroundColor: "rgba(252, 184, 57, 0.71)",
+    height: 470,
+    backgroundColor: "rgba(143, 188, 139, 0.73)",
     margin: 20,
+    borderRadius: 20
   },
   priceText: {
     fontStyle: 'italic',
@@ -242,7 +245,7 @@ emptyListBox:{
     flexDirection: 'row',
     justifyContent: 'flex-end',
     width: 'auto',
-    marginTop: 15, 
+    marginTop: 4, 
     alignSelf: 'flex-end',
     marginLeft: 10
 
@@ -266,13 +269,23 @@ emptyListBox:{
   dishNameText: {
     fontWeight: "700",
     fontSize: 19,
-    color: "rgba(241, 102, 59, 0.92)",
-  },
+    color: "rgba(128, 121, 119, 0.92)",
+    margin: 5,
+    width: 105  },
   descriptionText:{
-    fontSize: 15,
-    letterSpacing: 1.6,
-    padding: 10
-  }
+    fontSize: 13,
+    letterSpacing: 0.4,
+    padding: 5,
+    margin: 17,
+    flexWrap: 'nowrap'
+  },
+
+
+    courseNameText: {
+    fontWeight: "700",
+    fontSize: 19,
+    color: "rgba(192, 103, 133, 0.92)",
+  },
 
 
 
