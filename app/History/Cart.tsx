@@ -63,6 +63,7 @@ export default function Cart (){
             <Text style={styles.emptyText}>All selected cart items will be stored here📄 </Text>
           </View>
         )}
+        
       />
     </ScrollView>  
     </View>

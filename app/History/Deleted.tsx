@@ -268,10 +268,10 @@ emptyListBox:{
     margin: 5,
     width: 105  },
   descriptionText:{
-    fontSize: 12,
+    fontSize: 13,
     letterSpacing: 0.4,
     padding: 5,
-    marginBottom: 2,
+    margin: 17,
     flexWrap: 'nowrap'
   },
 
