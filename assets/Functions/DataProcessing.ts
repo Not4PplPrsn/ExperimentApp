@@ -12,7 +12,7 @@ let store =Store;
 // these are type attributes 
 export type CourseType =  'All'|'Entrée'  | 'Main' | 'Dessert'
 
-export const  COURSES: CourseType[] = ['Dessert', 'Main',  'Entrée','All']; /*The choice for se of the  */
+export const  COURSES: CourseType[] = ['Dessert', 'Main',  'Entrée',]; /*The choice for se of the  */
 
 
  export type DishEntries = {  // attributes of the array items
