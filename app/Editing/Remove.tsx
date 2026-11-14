@@ -277,7 +277,7 @@ emptyListBox:{
     fontStyle: 'italic',
     fontWeight: '600',
     fontSize: 14,
-    padding: 10
+    padding: 20
 
   },
   priceContainer: {
@@ -295,7 +295,6 @@ emptyListBox:{
   alignSelf: 'flex-end',
   alignItems: 'center',
   marginTop: 2.5,
-  
   },
 
   courseSelected: {
@@ -313,12 +312,19 @@ emptyListBox:{
     margin: 5,
     width: 105  },
   descriptionText:{
-    fontSize: 12,
+    fontSize: 13,
     letterSpacing: 0.4,
     padding: 5,
-    marginBottom: 2,
+    margin: 17,
     flexWrap: 'nowrap'
-  }
+  },
+
+
+    courseNameText: {
+    fontWeight: "700",
+    fontSize: 19,
+    color: "rgba(192, 103, 133, 0.92)",
+  },
 
 
 
