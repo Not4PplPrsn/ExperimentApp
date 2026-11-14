@@ -5,20 +5,20 @@ import { Alert } from 'react-native';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
  import { DishEntries } from '../../assets/Functions/DataProcessing';
 import { useCartStore } from '../../assets/Functions/DataProcessing';
-
+import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
  import { CourseType } from '../../assets/Functions/DataProcessing';
-
+import {  Provider as PaperProvider } from 'react-native-paper';
 import { COURSES } from '../../assets/Functions/DataProcessing';
 import { useDishStore } from '../../assets/Functions/DataProcessing';
 
 
 export default function MenuSelection() {
-  const {entries, removeDish}  = useDishStore();
+  const {entries}  = useDishStore();
   const [selectedCourse, setSelectedCourse] = useState<CourseType>("All");
   const {cart, addToCart} = useCartStore()
 
 
-  const filteredItems = entries.filter((dish) =>
+  let filteredItems = entries.filter((dish) =>
   selectedCourse === 'All'
     ? !dish.isDeleted &&
       dish.name.trim() !== '' &&
@@ -33,17 +33,65 @@ export default function MenuSelection() {
       dish.image
 );
       
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
 
     return( 
         <View style={styles.container}>
-            <Text> Hello</Text>
+  <PaperProvider>        
+    <View style = {{flexDirection: 'row', justifyContent: 'space-between'}}>
+
+  <Dropdown
+  /**(npm, 2025) */
+    label="Select course"
+    placeholder="Select course"
+    options={COURSES.map((c) => ({ label: c, value: c }))}
+    value={selectedCourse}
+    onSelect={(value) => setSelectedCourse(value as CourseType)}
+    mode="outlined"
+   menuContentStyle={styles.dropdownContainer}
+   
+  />
+
+    </View> 
+    
+    <ScrollView
+    horizontal = {true}
+    >
+      <FlatList
+      data={filteredItems}
+      renderItem={({item}) => (
+                <View style={styles.ListItemContainer} >
+                  
+                  <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
+                    <Image
+                    source={item.image}
+                    style ={styles.pickedImageDisplay}
+                    />
+                  <View >
+                    <Text style={styles.dishNameText}>{item.name}</Text>
+                    <Text style={styles.courseNameText}>{item.course}</Text>
+                  </View>
+          
+                  </View>
+                  <Text style={styles.descriptionText}>{item.description}</Text>
+          
+                  <View style = {styles.priceContainer}>
+                    <Text style  = {styles.priceText}> R {item.price}</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => addToCart(item)}>
+                      <View style = {styles.Button}>  
+                        <MaterialIcons name="settings-backup-restore" size={25} color="#f5f5f5" />
+                      </View>
+                    </TouchableOpacity>
+          
+                </View>     
 
 
-            <View>
+      )}      keyExtractor={(item) =>item.id.toString()}
 
-            </View>
+      />
+    </ScrollView> 
+    </PaperProvider> 
         </View>
     )
 }
@@ -176,7 +224,7 @@ const styles = StyleSheet.create({
   width : 100,
   height: 100,
   borderRadius: 75,
-  borderWidth: 2,
+  borderWidth: 0.15,
   padding: 5,
   margin: 10,
   
@@ -200,11 +248,13 @@ emptyListBox:{
   },
 
   ListItemContainer: {
-    width: 'auto',
+    width: 350,
+    
     alignSelf: 'center',
-    height: 'auto',
-    backgroundColor: "rgba(252, 184, 57, 0.71)",
+    height: 470,
+    backgroundColor: "rgba(143, 188, 139, 0.73)",
     margin: 20,
+    borderRadius: 20
   },
   priceText: {
     fontStyle: 'italic',
@@ -241,13 +291,25 @@ emptyListBox:{
   dishNameText: {
     fontWeight: "700",
     fontSize: 19,
-    color: "rgba(241, 102, 59, 0.92)",
-  },
+    color: "rgba(128, 121, 119, 0.92)",
+    margin: 5,
+    width: 105  },
+    
   descriptionText:{
-    fontSize: 15,
-    letterSpacing: 1.6,
-    padding: 10
-  }
+    fontSize: 13,
+    letterSpacing: 0.4,
+    padding: 5,
+    margin: 17,
+    flexWrap: 'nowrap'
+  },
+
+
+    courseNameText: {
+    fontWeight: "700",
+    fontSize: 19,
+    color: "rgba(192, 103, 133, 0.92)",
+  },
+
 
 
 
