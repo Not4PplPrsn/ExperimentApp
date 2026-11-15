@@ -7,11 +7,6 @@ import {  Provider as PaperProvider } from 'react-native-paper';
 import { Dropdown } from 'react-native-paper-dropdown'; /**(npm, 2025) */
 import {Entypo } from '@expo/vector-icons';
 
-
-
-import { DishList } from '../../assets/Functions/Lists/DishEntries';
-import { COURSES } from '../../assets/Functions/DataProcessing';
-
 import { useDishStore } from '../../assets/Functions/DataProcessing';
 
 
@@ -20,19 +15,55 @@ import { useDishStore } from '../../assets/Functions/DataProcessing';
 
 export default function HomePage() {
 
-  const {entries} = useDishStore()
+  const {entries} = useDishStore();
+  const numberOfItems  = entries.length;
 
+  let priceSum = 0 // Standardize the sum of all items in the array
+
+  let averageDishPrice = 0 // Standardized the average price of the items 
+
+  const numberOfStarters = entries.filter((dish) => (dish.course ==="Entrée")).length /**this will count the amount of items which have the course attribute that matches the one mentioned */
+  const numberOfMainDishes = entries.filter((dish) => (dish.course ==="Main")).length
+  const numberOfDesserts= entries.filter((dish) => (dish.course ==="Dessert")).length
+
+
+ for(let i  = 0; i < numberOfItems; i++ ) {
+  priceSum = priceSum + entries[i].price // Adding the price of each items in the list to the priceSum value as it the loop iterates through the loop 
+
+  averageDishPrice = priceSum / numberOfItems // Average iterates through the loop until all the the items in menu have been accounted for even new items in the array 
+ };
   return (
     <View style={styles.container}>
       
       <ScrollView style= {{ height: 'auto', width : 'auto', marginBottom: 25}}>
+        <Text style= {styles.baselineText}> 
+          Number of dishes: {numberOfItems}
+        </Text>
+
+        <Text style={styles.baselineText}>
+          Average Dish Price: R {averageDishPrice}
+        </Text>
+        <Text style={styles.baselineText}>
+          Number of Entrées: {numberOfStarters}
+        </Text>
+        
+        <Text style={styles.baselineText}>
+          Number of Main Course Dishes: {numberOfMainDishes}
+        </Text>
+        
+        <Text style={styles.baselineText}>
+          Number of Dessert Corse Dishes: {numberOfDesserts}
+        </Text>
+
+
 
 
         <Text style= {styles.courseHeading}>Entrée</Text>
   <ScrollView horizontal = {true}>     
-    {entries.filter((entry) => entry.course === "Entrée"  )
+    {entries 
+    .filter((entry) => entry.course === "Entrée"  ) /**This will filter through the list for this exact attribute value */
       .slice(0.2)
-      .map((item) => (
+      .map((item) => ( //Then this will display those exact items with the attribute 
 
       
       <View style={styles.ListItemContainer} >
@@ -57,7 +88,7 @@ export default function HomePage() {
       
 
     ))
-        };
+        }
   </ScrollView>
 
        <Text style= {styles.courseHeading}>Main</Text>
@@ -89,7 +120,7 @@ export default function HomePage() {
       
 
     ))
-        };
+        }
   </ScrollView>      
 
 
@@ -123,7 +154,7 @@ export default function HomePage() {
       
 
     ))
-        };
+        }
   </ScrollView>
         
 
@@ -148,16 +179,15 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontStyle: 'italic',
     marginStart : '10%',
-    marginTop: '20%',
+    marginTop: '10%',
     letterSpacing: 2
   },
    
   baselineText :{
-    fontFamily: 'Arial',
+    fontFamily: 'serif',
     fontSize: 14,
     fontWeight: 'thin',
-    paddingTop: 10,
-    paddingBottom: 10,
+    padding: 10
   },
   form:{
     justifyContent: 'space-between',
