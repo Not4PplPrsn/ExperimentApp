@@ -15,30 +15,48 @@ import { useDishStore } from '../../assets/Functions/DataProcessing';
 export default function MenuSelection() {
   const {entries}  = useDishStore();
   const [selectedCourse, setSelectedCourse] = useState<CourseType>("All");
-  const {cart, addToCart} = useCartStore()
+  const { addToCart} = useCartStore()
+
+  const [searchText, setSearchText] = useState('')
 
 
-  let filteredItems = entries.filter((dish) =>
-  selectedCourse === 'All'
-    ? !dish.isDeleted &&
+  let filteredItems = entries.filter((dish) =>{
+
+    const isValid =  // Added validation to see if the items is valid 
+    !dish.isDeleted &&
       dish.name.trim() !== '' &&
       dish.description.trim() !== '' &&
       dish.price > 0 &&
-      dish.image
-    : dish.course === selectedCourse &&
-      !dish.isDeleted &&
-      dish.name.trim() !== '' &&
-      dish.description.trim() !== '' &&
-      dish.price > 0 &&
-      dish.image
-);
+      dish.image;
+
+     const matchesCourse = // This will check if the item matches the selected course 
+      selectedCourse === 'All'
+      ? true
+      : dish.course === selectedCourse;
+     
+    const matchesSearches = 
+    dish.name.toLowerCase().includes(searchText.toLowerCase()) // This is to check if the name of the item is the same as any item in the list 
+
+    return isValid && matchesCourse && matchesSearches;
+});
       
 
 
     return( 
         <View style={styles.container}>
   <PaperProvider>        
-    <View style = {{flexDirection: 'row', justifyContent: 'space-between'}}>
+    <View style = {{flexDirection: 'row-reverse', justifyContent: 'space-between', alignContent: 'center', padding: 10}}>
+      
+      <View style= {styles.input}> {/* Search bar for the find of specific items  */}
+        <MaterialIcons name="search" size={25} color="rgb(255, 99, 71)" />
+
+        <TextInput
+        placeholder='Enter dish name '
+        value={searchText}
+        onChangeText={setSearchText}
+        style ={styles.baselineText}
+        />
+      </View>
 
   <Dropdown
   /**(npm, 2025) */
@@ -147,16 +165,19 @@ const styles = StyleSheet.create({
     
   }, 
   input: {
-    backgroundColor: 'rgb(230, 227, 215)',
+    backgroundColor: 'rgb(218, 230, 190)',
     borderColor: 'gray',
     height: "auto",
-    width: 282,
+    width: 150,
     borderWidth: 0,
     marginLeft: 4,
     marginTop:5,
     marginBottom: 5,
-    flexDirection: 'column',
+    flexDirection: 'row',
     padding: 7,
+    alignContent:  'center',
+    alignItems: 'center',
+    borderRadius: 10
     
     
   },
