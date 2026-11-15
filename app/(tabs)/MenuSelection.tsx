@@ -80,7 +80,7 @@ export default function MenuSelection() {
                   </View>
                   <TouchableOpacity onPress={() => addToCart(item)}>
                       <View style = {styles.Button}>  
-                        <MaterialIcons name="settings-backup-restore" size={25} color="#f5f5f5" />
+                        <Ionicons name="cart-outline" size={25} color="#f5f5f5" />
                       </View>
                     </TouchableOpacity>
           
