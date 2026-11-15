@@ -15,7 +15,7 @@ export type CourseType =  'All'|'Entrée'  | 'Main' | 'Dessert'
 export const  COURSES: CourseType[] = ['Dessert', 'Main',  'Entrée',]; /*The choice for se of the  */
 
 
- export type DishEntries = {  // attributes of the array items
+ export type DishEntries = {  // attributes of the array items 
     id : number,
     name : string,
     course: string,
@@ -54,13 +54,14 @@ addDish: (entry) => {  /**(Robin, 2022) */
         Alert.alert ('Duplicate', `"${entry.name}" is already in the list.`)
         return;
     }
-
+    
     const updated  = [newEntry, ...currentEntries]
 
     const organizing = updated.map((dish, index)=> ({
         ...dish,
         id : index +1
     }));
+            console.log('Item must be added to the main array ')
 
     set({entries:organizing})
 },
@@ -68,9 +69,13 @@ removeDish: (id) =>   /**(Robin, 2022) */
     set((state) => {
         const dishToDelete  = state.entries.find((dish) => dish.id === id)
         if (!dishToDelete) return {} as any;
+        console.log('Item must be removed from the main array ')
         
         const updateDish = {...dishToDelete, isDeleted: true } 
-        Alert.alert('Item(s) have been successfully deleted')
+
+        console.log('Item must be removed from the main array ')
+        
+        Alert.alert('Item(s) have been successfully deleted 🗑️')
         
         return {
             entries: state.entries.filter((dish) => dish.id !== id),
@@ -96,9 +101,11 @@ removeDish: (id) =>   /**(Robin, 2022) */
                 id: index +1
                 // adds the items back into the array but att the top of the list
             }));
-
+            
          const updatedBin = trash.filter((dish) => dish.id === id) // find the item sit will delete based on the id.
             Alert.alert('Item has been restored to the list')
+            console.log('Item must be restored to the main array ')
+
          set({
             entries: updatedEntries,
             trash: updatedBin,
@@ -120,8 +127,8 @@ removeDish: (id) =>   /**(Robin, 2022) */
 
  type CartItems = DishEntries
 
- type CartStore = {
-    cart : CartItems[],
+ type CartStore = { // Using type to create sub-functions for the useCartStore
+    cart : CartItems[], 
     addToCart:(entry:CartItems) => void;
     removeFromCart: (id: number) => void;
  };
