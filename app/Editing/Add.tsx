@@ -22,7 +22,7 @@ export default function Add(){
 
   const { addDish} = useDishStore();
     //empty variable for filling in and storing information
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState('');  /**(The IIE, 2026) */
     const [dishName, setDishName] = useState('');
     const [dishDescription, setDishDescription] = useState('');
     const [course, setCourse] = useState<CourseType>("Entrée");
@@ -46,7 +46,7 @@ export default function Add(){
       const handleAdd = () => {
 
         // store all the need version of my items so that i can store them and use them for easy error handling 
-      const nameTrimmed = dishName.trim();
+      const nameTrimmed = dishName.trim(); 
       const descriptionTrimmed = dishDescription.trim();
       const courseTrimmed = course.trim();
       const costT =Number(price.trim())
@@ -102,12 +102,12 @@ export default function Add(){
         id: 0
       }
 
-      addDish(newItem)
+      addDish(newItem) //(The IIE, 2026)
 
       Alert.alert("New item has been added to the menu 🍽️ ")
 
       //Refresh all the form parts 
-      setCourse('Entrée');
+      setCourse('Entrée'); //(The IIE, 2026)
       setDishDescription('');
       setDishName('');
       setPrice('');
@@ -126,7 +126,7 @@ export default function Add(){
     <PaperProvider>  
 
           <TouchableOpacity
-            onPress={() => router.back() }>
+            onPress={() => router.back() /**(Poimandres, 2026) */}>
               <View style= {{margin: 20}}> 
                 <Ionicons name = "arrow-back-circle-outline" color={'rgba(143, 188, 139, 0.73)'} size={48}/>
               </View>

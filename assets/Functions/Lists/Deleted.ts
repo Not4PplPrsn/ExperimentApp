@@ -1,8 +1,8 @@
 import { DishEntries } from "../DataProcessing";
 
-type existingDishes = DishEntries
+type existingDishes = DishEntries //(The IIE, 2026)
 
-export const Trash: existingDishes[] = [
+export const Trash: existingDishes[] = [ //(The IIE, 2026)
 
     
 ]

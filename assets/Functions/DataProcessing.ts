@@ -5,7 +5,7 @@ import { Alert } from 'react-native';
 import { isDefined } from 'react-native-reanimated/lib/typescript/common';
 import { Store } from './Lists/Cart';
 
-const dishes = DishList;
+const dishes = DishList; //(The IIE, 2026)
 const bin = Trash;
 let store =Store;
 
@@ -15,7 +15,7 @@ export type CourseType =  'All'|'Entrée'  | 'Main' | 'Dessert'
 export const  COURSES: CourseType[] = ['Dessert', 'Main',  'Entrée',]; /*The choice for se of the  */
 
 
- export type DishEntries = {  // attributes of the array items 
+ export type DishEntries = { //(The IIE, 2026) // attributes of the array items 
     id : number,
     name : string,
     course: string,

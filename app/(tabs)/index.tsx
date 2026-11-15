@@ -16,18 +16,18 @@ import { useDishStore } from '../../assets/Functions/DataProcessing';
 export default function HomePage() {
 
   const {entries} = useDishStore();
-  const numberOfItems  = entries.length;
+  const numberOfItems  = entries.length; /*(W3Schools, 2026) */ 
 
-  let priceSum = 0 // Standardize the sum of all items in the array
+  let priceSum = 0  // Standardize the sum of all items in the array
 
   let averageDishPrice = 0 // Standardized the average price of the items 
 
-  const numberOfStarters = entries.filter((dish) => (dish.course ==="Entrée")).length /**this will count the amount of items which have the course attribute that matches the one mentioned */
+  const numberOfStarters = entries.filter((dish) => (dish.course ==="Entrée")).length  /*(W3Schools, 2026) */ /**this will count the amount of items which have the course attribute that matches the one mentioned */
   const numberOfMainDishes = entries.filter((dish) => (dish.course ==="Main")).length
   const numberOfDesserts= entries.filter((dish) => (dish.course ==="Dessert")).length
 
 
- for(let i  = 0; i < numberOfItems; i++ ) {
+ for(let i  = 0; i < numberOfItems; i++ ) { //(The IIE, 2026)
   priceSum = priceSum + entries[i].price // Adding the price of each items in the list to the priceSum value as it the loop iterates through the loop 
 
   averageDishPrice = priceSum / numberOfItems // Average iterates through the loop until all the the items in menu have been accounted for even new items in the array 
@@ -61,7 +61,7 @@ export default function HomePage() {
         <Text style= {styles.courseHeading}>Entrée</Text>
   <ScrollView horizontal = {true}>     
     {entries 
-    .filter((entry) => entry.course === "Entrée"  ) /**This will filter through the list for this exact attribute value */
+    .filter((entry) => entry.course === "Entrée"  )  /*(W3Schools, 2026) */ /**This will filter through the list for this exact attribute value */
       .slice(0.2)
       .map((item) => ( //Then this will display those exact items with the attribute 
 
@@ -93,7 +93,7 @@ export default function HomePage() {
 
        <Text style= {styles.courseHeading}>Main</Text>
    <ScrollView  horizontal = {true}>      
-    {entries.filter((entry) => entry.course === "Main"  )
+    {entries.filter((entry) => entry.course === "Main"  ) /*(W3Schools, 2026) */ 
       .slice(0.2)
       .map((item) => (
 
@@ -166,7 +166,7 @@ export default function HomePage() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ //(The IIE, 2026)
   container: {
     flex: 1,
     backgroundColor: "rgb(255, 255, 224)",

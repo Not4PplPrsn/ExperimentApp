@@ -12,13 +12,13 @@ import { Switch } from 'react-native';
 
 
 {/**The pages that will be toggled in the drawer menu */}
-const History  = [
+const History  = [  /**(The IIE, 2026) */
 {name: 'Deleted', path: '/History/Deleted', icon: <MaterialIcons name="delete-outline" size={12} color="#000000" /> },
 {name: 'Cart', path: '/History/Cart',  icon: <Ionicons name="cart-outline" size={12} color="#000000" />}
 
 ]
 
-const Editing = [
+const Editing = [  /**(The IIE, 2026) */
     {name: 'Add', path: '/Editing/Add', icon: <MaterialIcons name="add-circle-outline" size={12} color="#000000" />},
     {name: 'Remove', path: '/Editing/Remove', icon: <MaterialIcons name="remove-circle-outline" size={12} color="#000000" /> }
 ]
@@ -90,16 +90,16 @@ export default function RootLayout() {
     );
 }
 
-function DrawerScroller(){
-    const router = useRouter();
+function DrawerScroller(){  /**(The IIE, 2026) */
+    const router = useRouter(); /*(W3Schools, 2026) */ 
 
-    const [expand, setExpand]= useState({ /**Set the variables to false they are not open  */
+    const [expand, setExpand]= useState({  /*(W3Schools, 2026) */ /**Set the variables to false they are not open  */
         History:false,
         Editing: false
     });
 
 
-    const toggleSection = (key: keyof typeof expand) => { /**(W3Schools, 2025) */ /**This is the function for the  the the toggling of items for the opening and closing of  the the item in the drawer items  */
+    const toggleSection = (key: keyof typeof expand) => { /**(W3Schools, 2026) */ /**This is the function for the  the the toggling of items for the opening and closing of  the the item in the drawer items  */
     setExpand((prev) => ({
       ...prev,
       [key]: !prev[key],
@@ -107,7 +107,7 @@ function DrawerScroller(){
   };
 
     return(
-        <DrawerContentScrollView>
+        <DrawerContentScrollView> {/*(W3Schools, 2026) */ }
 
         {/**This is the home page navigation button and no navigation will appear unless it is standardized in this function as set in the main drawer */}
             <DrawerItem

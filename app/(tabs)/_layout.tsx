@@ -8,6 +8,7 @@ import { Ionicons, MaterialIcons, Entypo, AntDesign,  } from '@expo/vector-icons
 export default function TabLayout() {
     return(
         <Tabs
+        
         screenOptions={{
             headerShown: false,
             tabBarStyle: {

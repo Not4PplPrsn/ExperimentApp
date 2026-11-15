@@ -7,7 +7,7 @@ import { useRouter } from 'expo-router';
 
 export default function EditingPage () {
 
-  const router = useRouter();
+  const router = useRouter();  /**(The IIE, 2026) */
     return(
         <View style={styles.container}>
           <View>

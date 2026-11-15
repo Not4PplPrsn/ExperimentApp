@@ -17,7 +17,7 @@ export default function Deleted(){
   return(
     <View style={styles.container}>
           <TouchableOpacity
-            onPress={() => router.back() }>
+            onPress={() => router.back() /**(Poimandres, 2026) */}>
               <View style= {{margin: 20}}> 
                 <Ionicons name = "arrow-back-circle-outline" color={'rgba(143, 188, 139, 0.73)'} size={48}/>
               </View>
@@ -26,7 +26,7 @@ export default function Deleted(){
     <ScrollView>  
       <FlatList
         data={trash}
-        renderItem={({item}) => (
+        renderItem={({item}) => ( /** (W3Schools, 2026)*/ /**The display for the array items so the user can see the items they wish to delete */
                 <View style={styles.ListItemContainer} >
                   
                   <View style={{flexDirection: 'row', margin: 2, justifyContent:'space-around'}}>
@@ -45,6 +45,8 @@ export default function Deleted(){
                   <View style = {styles.priceContainer}>
                     <Text style  = {styles.priceText}> R {item.price}</Text>
                   </View>
+
+                   {/**The button to restore the dish to the list */}
                   <TouchableOpacity onPress={() => restoreDish(item.id)}>
                       <View style = {styles.Button}>  
                         <MaterialIcons name="settings-backup-restore" size={25} color="#f5f5f5" />

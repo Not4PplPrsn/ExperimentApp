@@ -22,15 +22,15 @@ export default function MenuSelection() {
 
   let filteredItems = entries.filter((dish) =>{
 
-    const isValid =  // Added validation to see if the items is valid 
+    const isValid =  // Added validation to see if the items is valid (W3Schools, 2026)
     !dish.isDeleted &&
-      dish.name.trim() !== '' &&
+      dish.name.trim() /*(W3Schools, 2026) */ !== '' &&
       dish.description.trim() !== '' &&
       dish.price > 0 &&
       dish.image;
 
      const matchesCourse = // This will check if the item matches the selected course 
-      selectedCourse === 'All'
+      selectedCourse === 'All' /*(W3Schools, 2026) */ 
       ? true
       : dish.course === selectedCourse;
      

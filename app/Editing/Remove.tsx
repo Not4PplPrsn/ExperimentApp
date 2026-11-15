@@ -14,9 +14,9 @@ import { COURSES } from '../../assets/Functions/DataProcessing';
 
 
 export default function Remove(){
-  const router = useRouter();
+  const router = useRouter()/**(Poimandres, 2026) */;
 
-  const {entries, removeDish}  = useDishStore();
+  const {entries, removeDish}  = useDishStore(); /**(The IIE, 2026) */
   const [selectedCourse, setSelectedCourse] = useState<CourseType>("All");
 
 
