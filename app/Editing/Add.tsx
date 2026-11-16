@@ -52,7 +52,7 @@ export default function Add(){
       const costT =Number(price.trim())
       
       /**Will check my word count with this variable  */
-      const wordCount = descriptionTrimmed.split(/\s+/).length; // groups character into words and counts then counts the grouped words as characters 
+      const wordCount = descriptionTrimmed.split(/[-\s]+/).length; // groups character into words and counts then counts the grouped words as characters and take into account hyphenated words
 
 switch (true) { /**(The IIE, 2026) */
   case (!nameTrimmed && !descriptionTrimmed && !selectedImage && costT === 0): // Checking if all variable are filled 
@@ -61,7 +61,7 @@ switch (true) { /**(The IIE, 2026) */
   case (nameTrimmed.length === 0):
     Alert.alert("Please fill your name"); // Checking if the name field is filled 
     return;
-  case (wordCount <= 70): // Checking for the word count
+  case (wordCount < 70): // Checking for the word count
     Alert.alert("You must write up to 70 or more words...");
     return;
   case (Number.isNaN(costT)): // Checking to see if any letters were entered in the price variable
@@ -74,6 +74,11 @@ switch (true) { /**(The IIE, 2026) */
    case(!selectedImage): // Checking to see if the image has been selected 
     Alert.alert('Please select image for the menu')
     return;
+    case (descriptionTrimmed.includes('-') || costT < 70): {
+      Alert.alert('NO HYPHENS ALLOWED!', "Please remove all hyphens ,'-', form the description you have entered.")
+      return;
+    };
+    
 
 }      
 
