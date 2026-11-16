@@ -52,7 +52,7 @@ export default function HomePage() {
         </Text>
         
         <Text style={styles.baselineText}>
-          Number of Dessert Corse Dishes: {numberOfDesserts}
+          Number of Dessert Course Dishes: {numberOfDesserts}
         </Text>
 
 
