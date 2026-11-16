@@ -72,6 +72,9 @@ export default function Add(){
         return;
         
       }
+      else if (Number.isNaN(costT)){
+        Alert.alert("Please enter only numbers no letters mixed in please.😒")
+      }
 
       else if ( costT <= 150){
         Alert.alert("The amount you enter must be more than R 150")
@@ -88,6 +91,7 @@ export default function Add(){
         return;
         
       }
+      
 
 
        
