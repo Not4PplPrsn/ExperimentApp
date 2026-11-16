@@ -54,44 +54,28 @@ export default function Add(){
       /**Will check my word count with this variable  */
       const wordCount = descriptionTrimmed.split(/\s+/).length; // groups character into words and counts then counts the grouped words as characters 
 
-      if (!nameTrimmed && 
-        !descriptionTrimmed &&  
-        !selectedImage && 
-        costT === 0){
+switch (true) { /**(The IIE, 2026) */
+  case (!nameTrimmed && !descriptionTrimmed && !selectedImage && costT === 0): // Checking if all variable are filled 
+    Alert.alert("Please fill in all the fields");
+    return;
+  case (nameTrimmed.length === 0):
+    Alert.alert("Please fill your name"); // Checking if the name field is filled 
+    return;
+  case (wordCount <= 70): // Checking for the word count
+    Alert.alert("You must write up to 70 or more words...");
+    return;
+  case (Number.isNaN(costT)): // Checking to see if any letters were entered in the price variable
+    Alert.alert("Invalid Price");
+    return;
+  case (costT <= 150): // Checking to see if indeed the price is at an acceptable range
+    Alert.alert("Price must be more than R 150");
+    return;
 
-        Alert.alert("Please fill in all the fields")
-        return;
-      }
-      else if (nameTrimmed.length === 0) {
-        Alert.alert("Please fill your name")
-        return;
-      }
+   case(!selectedImage): // Checking to see if the image has been selected 
+    Alert.alert('Please select image for the menu')
+    return;
 
-      else if (wordCount < 0 || wordCount < 70){
-        Alert.alert("You must write up to 70 or more, words when describing your dish")
-        return;
-        
-      }
-      else if (Number.isNaN(costT)){
-        Alert.alert("Please enter only numbers no letters mixed in please.😒")
-      }
-
-      else if ( costT <= 150){
-        Alert.alert("The amount you enter must be more than R 150")
-        return;
-
-      }
-      else if ( courseTrimmed.length  == 0){
-        Alert.alert("Please select the course you would like to enter this dish as.")
-        return;
-
-      }
-      else if (!selectedImage){
-        Alert.alert("Add the image please")
-        return;
-        
-      }
-      
+}      
 
 
        
