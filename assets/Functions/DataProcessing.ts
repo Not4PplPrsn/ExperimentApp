@@ -88,7 +88,7 @@ removeDish: (id) =>   /**(Robin, 2022) */
          const{trash, entries} = get();
 
          const dishToRestore = trash.find((dish) => dish.id === id ); //Finds the items in the array 
-         if (!dishToRestore) return ;
+         if (!dishToRestore) return {};
 
             // changes the the deleted marker to not deleted 
             const restoredDish  ={...dishToRestore, isDeleted: false};
@@ -102,7 +102,7 @@ removeDish: (id) =>   /**(Robin, 2022) */
                 // adds the items back into the array but att the top of the list
             }));
             
-         const updatedBin = trash.filter((dish) => dish.id === id) // find the item sit will delete based on the id.
+         const updatedBin = trash.filter((dish) => dish.id !== id) // find the item sit will delete based on the id.
             Alert.alert('Item has been restored to the menu')
             console.log('Item restored to the main array ')
 
