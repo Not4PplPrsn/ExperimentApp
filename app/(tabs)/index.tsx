@@ -41,7 +41,7 @@ export default function HomePage() {
         </Text>
 
         <Text style={styles.baselineText}>
-          Average Dish Price: R {averageDishPrice}
+          Average Dish Price: R {averageDishPrice.toFixed(2)}
         </Text>
         <Text style={styles.baselineText}>
           Number of Entrées: {numberOfStarters}
