@@ -57,8 +57,24 @@ export default function Add(){
 switch (true) { /**(The IIE, 2026) */
   case (!nameTrimmed && !descriptionTrimmed && !selectedImage && costT === 0) ||
   (nameTrimmed && !descriptionTrimmed && !selectedImage && costT > 0) ||
+  (nameTrimmed && !descriptionTrimmed && selectedImage && costT === 0)||
+  (nameTrimmed && !descriptionTrimmed && !selectedImage && costT > 0)||
+  (nameTrimmed && descriptionTrimmed && !selectedImage && costT === 0)||
+
   (!nameTrimmed && descriptionTrimmed && !selectedImage && costT === 0) ||
-  (!nameTrimmed && !descriptionTrimmed && selectedImage && costT === 0):     Alert.alert("Please fill in all the fields");
+  (!nameTrimmed && descriptionTrimmed && selectedImage && costT === 0)||
+  (!nameTrimmed && descriptionTrimmed && !selectedImage && costT > 0)||
+
+  (!nameTrimmed && !descriptionTrimmed && selectedImage && costT === 0)||
+  (!nameTrimmed && !descriptionTrimmed && selectedImage && costT > 0)||
+  
+
+  (!nameTrimmed && !descriptionTrimmed && !selectedImage && costT > 0)
+
+
+  :     
+  
+  Alert.alert("Please fill in all the fields");
     return;
   case (nameTrimmed.length === 0):
     Alert.alert("Please fill your name"); // Checking if the name field is filled 
