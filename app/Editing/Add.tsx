@@ -62,7 +62,7 @@ switch (true) { /**(The IIE, 2026) */
     Alert.alert("Please fill your name"); // Checking if the name field is filled 
     return;
   case (wordCount < 70): // Checking for the word count
-    Alert.alert("You must write up to 70 or more words...");
+    Alert.alert("You must write up to 70 or more words...", "and make sure the paragraph has no hyphens or hyphenated words, it will shorten your word count.");
     return;
   case (Number.isNaN(costT)): // Checking to see if any letters were entered in the price variable
     Alert.alert("Invalid Price");
@@ -74,7 +74,7 @@ switch (true) { /**(The IIE, 2026) */
    case(!selectedImage): // Checking to see if the image has been selected 
     Alert.alert('Please select image for the menu')
     return;
-    case (descriptionTrimmed.includes('-') || costT < 70): {
+    case (descriptionTrimmed.includes('-')): {
       Alert.alert('NO HYPHENS ALLOWED!', "Please remove all hyphens ,'-', form the description you have entered.")
       return;
     };
