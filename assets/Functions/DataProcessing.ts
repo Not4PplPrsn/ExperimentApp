@@ -61,7 +61,7 @@ addDish: (entry) => {  /**(Robin, 2022) */
         ...dish,
         id : index +1
     }));
-            console.log('Item must be added to the main array ')
+            console.log('Item added to the main array ')
 
     set({entries:organizing})
 },
@@ -73,7 +73,7 @@ removeDish: (id) =>   /**(Robin, 2022) */
         
         const updateDish = {...dishToDelete, isDeleted: true } 
 
-        console.log('Item must be removed from the main array ')
+        console.log('Item  removed from the main array ')
         
         Alert.alert('Item(s) have been successfully deleted 🗑️')
         
@@ -103,8 +103,8 @@ removeDish: (id) =>   /**(Robin, 2022) */
             }));
             
          const updatedBin = trash.filter((dish) => dish.id === id) // find the item sit will delete based on the id.
-            Alert.alert('Item has been restored to the list')
-            console.log('Item must be restored to the main array ')
+            Alert.alert('Item has been restored to the menu')
+            console.log('Item restored to the main array ')
 
          set({
             entries: updatedEntries,
@@ -140,20 +140,31 @@ addToCart: (dish: DishEntries) => {  /**(Robin, 2022), This is the sub-function 
         const alreadyInCart = state.cart.some((item) => item.name === dish.name) // Check if there are any items in the cart that are the same 
 
         if (alreadyInCart){
+            console.log("Blocked item already in cart")
             Alert.alert("Wait", `"${dish.name}" is already in the cart`) // Message for if the item is indeed the same 
             return {} as any;
         }
 
         const activeCart = {...dish, isDeleted: false} // Standardized the isDeleted attribute to false for all newly added items 
-
+        console.log('Success', `"${dish.name} has been added to your cart"`)
         return {cart: [...state.cart, activeCart]}  // sets the items in the cart list with the changes 
 
     });
 },
   removeFromCart: (id) => { /**(Robin, 2022) */
-    set((state) => ({
-      cart: state.cart.filter((item) => item.id !== id)//filter through the array to find the items id ,
-    }));
+    set((state) => {
+        // Logging which item is being removed
+        console.log('Attempting to remove an item via id', id)
+
+        // Logging how many items have been removed 
+        console.log("Cart length before:", state.cart.length)
+
+      const newCart = state.cart.filter((item) => item.id !== id);//filter through the array to find the items id ,
+        
+      // This the length of the cart after deleting
+      console.log("Cart length after  removala:", newCart.length)
+        return {cart: newCart};
+    });
   },
 
  }));
